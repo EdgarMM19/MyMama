@@ -26,7 +26,7 @@ class _TodoListState extends State<TodoList> {
           future: dataQueries["consultaConfigs"](),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
             else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
               List<ConfigActivity> data = snapshot.data;
