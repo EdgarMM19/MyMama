@@ -13,7 +13,7 @@ class ConfigurationPage extends StatefulWidget {
   ConfigurationPage({Key key, this.dataQueries}) : super(key: key);
 
   @override
-  _ConfigurationPageState createState() => _ConfigurationPageState();
+  _ConfigurationPageState createState() => _ConfigurationPageState(dataQueries: dataQueries);
 }
 
 class _ConfigurationPageState extends State<ConfigurationPage> {
@@ -143,7 +143,7 @@ class SportButton extends StatefulWidget {
 
   SportButton({this.text, this.dataQueries});
   @override
-  _SportButtonState createState() => _SportButtonState(text: this.text);
+  _SportButtonState createState() => _SportButtonState(text: this.text, dataQueries: dataQueries);
 }
 
 class _SportButtonState extends State<SportButton> {
@@ -241,7 +241,7 @@ class SportForm extends StatefulWidget {
   SportForm({this.type, this.dataQueries});
 
   @override
-  _SportFormState createState() => _SportFormState(type: this.type);
+  _SportFormState createState() => _SportFormState(type: this.type, dataQueries: dataQueries);
 }
 
 class _SportFormState extends State<SportForm> {
@@ -282,12 +282,12 @@ class _SportFormState extends State<SportForm> {
             ),
             onTap: () async {
               FocusScope.of(context).requestFocus(new FocusNode());
-
               TimeOfDay picked =
                   await showTimePicker(context: context, initialTime: time);
               if (picked != null && picked != time) {
                 hourPresent = true;
                 var now = DateTime.now();
+
                 var dt = DateTime(
                     now.year, now.month, now.day, picked.hour, picked.minute);
                 String _formattetime = DateFormat.Hm().format(dt);
@@ -297,7 +297,6 @@ class _SportFormState extends State<SportForm> {
                 });
               }
             },
-            validator: (value) {},
           ),
           TextFormField(
             controller: timeCtl2, // add this line.
@@ -307,7 +306,6 @@ class _SportFormState extends State<SportForm> {
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly
             ],
-            validator: (value) {},
           ),
           WeekdaySelector(
             onChanged: (int day) {
@@ -343,7 +341,7 @@ class _SportFormState extends State<SportForm> {
                 }
                 if (hourPresent && daysPresent) {
                   //ConfigFixedActivity
-                  dataQueries["addEntries"](ConfigFixedActivity(
+                  dataQueries["addConfig"](ConfigFixedActivity(
                       name: timeCtlName.text,
                       genre: type,
                       span: int.parse(timeCtl2.text),
@@ -352,7 +350,7 @@ class _SportFormState extends State<SportForm> {
                           daysInt.length, time.hour * 60 + time.minute)));
                 } else if (daysPresent) {
                   //ConfigFreeHour
-                  dataQueries["addEntries"](ConfigFixedActivityFreeHour(
+                  dataQueries["addConfig"](ConfigFixedActivityFreeHour(
                     name: timeCtlName.text,
                     genre: type,
                     span: int.parse(timeCtl2.text),
@@ -360,12 +358,13 @@ class _SportFormState extends State<SportForm> {
                   ));
                 } else {
                   //ConfigActivityFreeHour
-                  dataQueries["addEntries"](ConfigActivityFreeHour(
+                  dataQueries["addConfig"](ConfigActivityFreeHour(
                     name: timeCtlName.text,
                     genre: type,
                     span: int.parse(timeCtl2.text),
                   ));
                 }
+                Navigator.of(context).pop();
               },
               child: Text('Create task'),
             ),
