@@ -7,13 +7,17 @@ import 'package:weekday_selector/weekday_selector.dart';
 import 'connection.dart';
 
 class ConfigurationPage extends StatefulWidget {
-  const ConfigurationPage({Key key}) : super(key: key);
+  final Map<String, dynamic> dataQueries;
+  ConfigurationPage({Key key, this.dataQueries}) : super(key: key);
 
   @override
   _ConfigurationPageState createState() => _ConfigurationPageState();
 }
 
 class _ConfigurationPageState extends State<ConfigurationPage> {
+  final Map<String, dynamic> dataQueries;
+  _ConfigurationPageState({this.dataQueries});
+
   @override
   Widget build(BuildContext context) {
     return Container(

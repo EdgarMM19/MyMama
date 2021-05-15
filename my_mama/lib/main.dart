@@ -78,9 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
         scrollDirection: Axis.horizontal,
         controller: controller,
         children: <Widget> [
-          Container(child: ConfigurationPage()),
-          Container(child: CalendarPage()),
-          Container(child: CallMyMamaPage()),
+          ConfigurationPage(dataQueries: dataQueries),
+          CalendarPage(dataQueries: dataQueries),
+          CallMyMamaPage(dataQueries: dataQueries),
         ]
       )
     );
