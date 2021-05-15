@@ -6,15 +6,21 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
   List<ConfigActivity> to_do = [];
 
   var today = DateTime.now().weekday;
+  print(today);
+
   // separate into two lists
   for (ConfigActivity c in configs) {
     if (c is ConfigFixedActivity) {
-      if (c.whenDia.contains(today)) {
-        fixed.add(Activity(config: c, start: c.whenMinut[today]));
+      for (int i = 0; i < c.whenDia.length; i++) {
+        if (c.whenDia[i] == today) {
+          fixed.add(Activity(config: c, start: c.whenMinut[i]));
+        }
       }
     } else if (c is ConfigFixedActivityFreeHour) {
-      if (c.whenDia.contains(today)) {
-        to_do.add(c);
+      for (int i = 0; i < c.whenDia.length; i++) {
+        if (c.whenDia[i] == today) {
+          to_do.add(c);
+        }
       }
     }
   }

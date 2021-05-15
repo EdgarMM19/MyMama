@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       prefs.setString("data", jsonEncode(
           [
             ConfigFixedActivityFreeHour(name: "Running", span: 60, genre: "Sport", whenDia: [0, 3, 5]),
-            ConfigFixedActivity(name: "Real", span: 60, genre: "Math", whenDia: [0, 3, 5], whenMinut: [12*60, 13*60, 9*60]),
+            ConfigFixedActivity(name: "Real", span: 60, genre: "Math", whenDia: [0, 3, 5, 6], whenMinut: [12*60, 13*60, 23*60 + 55, 9*60]),
             ConfigActivityFreeHour(name: "Rentadora", span: 30, genre: "Higyene")
           ]
       ));
