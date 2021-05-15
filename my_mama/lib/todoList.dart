@@ -1,5 +1,6 @@
 import 'dart:math';
-
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 class TodoList extends StatefulWidget {
@@ -8,13 +9,12 @@ class TodoList extends StatefulWidget {
 }
 
 class _TodoListState extends State<TodoList> {
-  final List<TodoItem> items = List<TodoItem>.generate(
-    100,
-    (i) => TodoItem(
-      itemData: i.toString(),
-      itemHour: i.toString(),
-    ),
-  );
+  final List<TodoItem> items = [
+    TodoItem(itemName: "Real", itemInitialMinute: 9*60, itemDuration: 1, itemType: "Math"),
+    TodoItem(itemName: "Complexa", itemInitialMinute: 10*60, itemDuration: 1, itemType: "Math"),
+    TodoItem(itemName: "Parallelism", itemInitialMinute: 11*60, itemDuration: 1, itemType: "Info"),
+    TodoItem(itemName: "Real", itemInitialMinute: 13*60, itemDuration: 2, itemType: "Math")
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,35 @@ class _TodoListState extends State<TodoList> {
 }
 
 class TodoItem extends StatelessWidget {
-  final dynamic itemData;
-  final dynamic itemHour;
+  final String itemName;
+  final int itemInitialMinute;
+  final int itemDuration;
+  final String itemType;
   final Random rng = Random();
 
-  TodoItem({Key key, @required this.itemData, this.itemHour}) : super(key: key);
+  TodoItem({Key key, this.itemName, this.itemInitialMinute, this.itemDuration, this.itemType}) : super(key: key);
 
   Color randomColor() {
-    return Color.fromRGBO(rng.nextInt(64) + 64, rng.nextInt(64) + 160, rng.nextInt(64) + 160, 1.0);
+
+    int hashv = (int.parse(hash(this.itemName), radix: 16)~/1e30)%(64*64*64);
+    int a = hashv%64;
+    int b = (hashv~/64)%64;
+    int c = (hashv~/64~/64)%64;
+    return Color.fromRGBO(a%64 + 64, b%64 + 160, c%64 + 160, 1.0);
+  }
+
+  String minuteToString(int initialMinute) {
+    int h = initialMinute~/60;
+    int m = initialMinute%60;
+    String H = h.toString();
+    if (h < 10) H = "0" + H;
+    String M = m.toString();
+    if (m < 10) M = "0" + M;
+    return H + ":" + M;
+  }
+
+  String hash(String input) {
+    return md5.convert(utf8.encode(input)).toString();
   }
 
   @override
@@ -54,7 +75,7 @@ class TodoItem extends StatelessWidget {
       children: [
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-            child: Text(itemHour + ":00",
+            child: Text(minuteToString(itemInitialMinute),
                 style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -62,9 +83,11 @@ class TodoItem extends StatelessWidget {
             )
         ),
         Expanded(child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-            child: Container(
-                height: 40,
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Container(
+                height: 40*max(itemDuration, 1),
                 decoration: BoxDecoration(
                   color: randomColor(),
                 ),
@@ -72,9 +95,10 @@ class TodoItem extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(itemData)
+                    child: Text(itemName)
                   ),
                 )
+              )
             )
         ),)
       ])
