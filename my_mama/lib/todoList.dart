@@ -61,19 +61,22 @@ class TodoItem extends StatelessWidget {
                     color: Colors.teal)
             )
         ),
-        Padding(
+        Expanded(child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             child: Container(
-                width: 300,
+                height: 40,
                 decoration: BoxDecoration(
                   color: randomColor(),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(itemData),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(itemData)
+                  ),
                 )
             )
-        ),
+        ),)
       ])
     );
   }

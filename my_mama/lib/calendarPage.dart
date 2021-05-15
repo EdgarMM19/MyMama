@@ -25,7 +25,8 @@ class _CalendarPageState extends State<CalendarPage> {
               style: TextStyle(
                 fontSize: 72.0,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal)),
+                color: Colors.teal)
+              ),
             ],
           ),
         ),
