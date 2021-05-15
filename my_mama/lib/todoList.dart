@@ -27,7 +27,7 @@ class _TodoListState extends State<TodoList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Placeholder();/*Container(
         child: FutureBuilder(
           future: dataQueries["consultaConfigs"](),
           builder: (context, snapshot) {
@@ -50,7 +50,7 @@ class _TodoListState extends State<TodoList> {
             );
           },
         )
-      );
+      );*/
   }
 }
 
