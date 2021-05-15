@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class TodoList extends StatefulWidget {
@@ -40,30 +42,35 @@ class _TodoListState extends State<TodoList> {
 class TodoItem extends StatelessWidget {
   final dynamic itemData;
   final dynamic itemHour;
-  const TodoItem({Key key, @required this.itemData, this.itemHour})
-      : super(key: key);
+  final Random rng = Random();
+
+  TodoItem({Key key, @required this.itemData, this.itemHour}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 1000.0,
-        decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.black, width: 1)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                child: Text(itemHour,
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal))),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
-                child: Text(itemData)),
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: Text(itemHour + ":00",
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal))),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: Container(
+                width: 400,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(rng.nextInt(64) + 64,
+                      rng.nextInt(64) + 160, rng.nextInt(64) + 160, 1.0),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(itemData),
+                ))),
+      ],
+    ));
   }
 }
