@@ -20,8 +20,8 @@ def greedy_schedule(tasks, rest, start=8*60, end=22*60):
     return(schedule)
 
 
-tasks = [To_do("correr",30), To_do("deures",60), To_do("churri",120), To_do("compra",45), To_do("cuinar",60)]
-rest = [Event("clase",9*60,11*60), Event("clase",12*60, 14*60), Event("clase",16*60,17*60)]
+tasks = [Task("correr",span = 30), Task("deures",span = 60), Task("churri",span = 120), Task("compra",span = 45), Task("cuinar",span = 60)]
+rest = [Task("clase",2*60,9*60), Task("clase",2*60, 12*60), Task("clase",1*60,16*60)]
 #rest = [(x[0]*60,x[1]*60) for x in clases]
 
 result = greedy_schedule(tasks, rest)
