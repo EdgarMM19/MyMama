@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'MyMamma',
+      title: 'MyMama',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
         primaryColor: const Color(0xFF2196f3),
@@ -29,12 +29,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final double padding = 25;
     return Scaffold(
       body: Container(
-        width: size.width,
-        height: size.height,
         child: Column(
           children: [
             Padding(
@@ -43,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("MyMamma",
+                  Text("MyMama",
                       style: TextStyle(
                           fontSize: 72.0,
                           fontWeight: FontWeight.bold,
