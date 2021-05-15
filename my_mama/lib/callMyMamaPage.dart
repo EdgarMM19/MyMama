@@ -29,7 +29,12 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   }
 
   void send() {
-    // mainList[controller.selectedIndexes] to send to myMama
+    List listToSend;
+    var list = controller.selectedIndexes;
+    list.forEach((element) {
+      listToSend.add(element);
+    });
+    // send this list as json or i dont know
   }
 
   void delete() {
@@ -82,9 +87,9 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
                 },
                 child: Container(
                   child: ListTile(
-                    title: new Text("${mainList[index]['name']}"),
+                    title: new Text("${mainList[index].name}"),
                     subtitle: new Text(
-                        "${mainList[index]['type']} for ${mainList[index]['span']}"),
+                        "${mainList[index].type} for ${mainList[index].span} minutes"),
                   ),
                   decoration: controller.isSelected(index)
                       ? new BoxDecoration(color: Colors.grey[300])
@@ -94,10 +99,15 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
             );
           },
         ),
-        floatingActionButton: new FloatingActionButton(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: new TextButton(
           onPressed: send,
-          tooltip: 'Increment',
-          child: Text("Call myMama"),
+          child: Text(
+            "  Call myMama  ",
+            style: TextStyle(color: Colors.white, fontSize: 45),
+          ),
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
         ),
       ),
     );
