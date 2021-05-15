@@ -64,6 +64,23 @@ class ConfigFixedActivityFreeHour extends ConfigActivity {
       };
 }
 
+class ConfigActivityFreeHour extends ConfigActivity {
+  String name;
+  String genre;
+  int span;
+
+  ConfigActivityFreeHour({this.name, this.genre, this.span});
+
+  ConfigActivityFreeHour.fromJson(Map<String, dynamic> json) {
+    this.name = json["name"] as String;
+    this.genre = json["genre"] as String;
+    this.span = json["span"] as int;
+  }
+
+  Map<String, dynamic> toJson() =>
+      {"name": this.name, "genre": this.genre, "span": span, "type": 3};
+}
+
 class Activity {
   ConfigActivity config;
   int start;
