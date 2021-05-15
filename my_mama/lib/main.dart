@@ -33,8 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final PageController controller = PageController(initialPage: 1);
     final Size size = MediaQuery.of(context).size;
-    return Container(
-      child: PageView(
+    return Scaffold(
+      body: PageView(
         scrollDirection: Axis.horizontal,
         controller: controller,
         children: <Widget> [
