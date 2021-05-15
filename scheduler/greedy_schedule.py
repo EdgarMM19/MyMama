@@ -15,7 +15,6 @@ def greedy_schedule(to_do, event, start=8*60, end=22*60):
             if s + t.span <= f:
                 event.insert(i+1, Task(t.name, t.span, s))
                 #schedule[t.name] = (s, s + t.span)
-                schedule[t.name] = (s/60, (s + t.span)/60)
                 break
     return event
 
