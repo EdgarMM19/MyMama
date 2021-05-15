@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_mama/calendarPage.dart';
-import 'todoList.dart';
+import 'package:my_mama/callMyMamaPage.dart';
+import 'package:my_mama/configurationPage.dart';
 
 void main() {
   runApp(new MyApp());
@@ -37,9 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
           scrollDirection: Axis.horizontal,
           controller: controller,
           children: const <Widget> [
+            ConfigurationPage(),
             CalendarPage(),
-            CalendarPage(),
-            CalendarPage()
+            CallMyMamaPage()
           ]
         )
       ),
