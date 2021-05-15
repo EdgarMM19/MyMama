@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_mama/calendarPage.dart';
 import 'todoList.dart';
 import 'package:multi_select_item/multi_select_item.dart';
-import 'connection.dart';
-import 'package:my_mama/connection.dart';
-import 'package:http/http.dart' as http;
 
 class CallMyMamaPage extends StatefulWidget {
   final Map<String, dynamic> dataQueries;
@@ -25,20 +22,17 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   void initState() {
     super.initState();
 
-    mainList.add(Task("Gym", 10, 250, "Sport"));
-    mainList.add(Task("Run", 60, 250, "Sport"));
-    mainList.add(Task("Swim", 120, 250, "Sport"));
-    mainList.add(Task("Dinner with friends", 180, 1200, "Social"));
+    mainList.add(ConfigActivity(name:"Gym", genre:"Sport", span: 10));
+    mainList.add(ConfigActivity(name:"Run", genre:"Sport", span: 60));
+    mainList.add(ConfigActivity(name:"Swim", genre:"Sport", span: 120));
+    mainList.add(ConfigActivity(name:"Dinner with friends", genre:"Social", span: 150));
 
     controller.disableEditingWhenNoneSelected = true;
     controller.set(mainList.length);
   }
 
   void send() async {
-    await sendTasks(mainList);
-    await Future.delayed(Duration(milliseconds: 500));
-    List<Task> algo = await fetchTasks(http.Client());
-    print(algo);
+    //
   }
 
   void delete() {
@@ -93,7 +87,7 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
                   child: ListTile(
                     title: new Text("${mainList[index].name}"),
                     subtitle: new Text(
-                        "${mainList[index].type} for ${mainList[index].span} minutes"),
+                        "${mainList[index].genre} for ${mainList[index].span} minutes"),
                   ),
                   decoration: controller.isSelected(index)
                       ? new BoxDecoration(color: Colors.grey[300])
