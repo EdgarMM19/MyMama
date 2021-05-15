@@ -32,7 +32,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
           children: [
             Text("Configuration",
                 style: TextStyle(
-                    fontSize: 72.0,
+                    fontSize: 32.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.teal)),
           ],
