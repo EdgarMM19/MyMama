@@ -35,10 +35,7 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   }
 
   void send() async {
-    await sendTasks(mainList);
-    await Future.delayed(Duration(milliseconds: 500));
-    List<Task> algo = await fetchTasks(http.Client());
-    print(algo);
+    //
   }
 
   void delete() {
