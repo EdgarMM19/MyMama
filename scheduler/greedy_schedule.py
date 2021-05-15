@@ -20,6 +20,7 @@ def greedy_schedule(to_do, event, start=8*60, end=22*60):
 
 
 # test
-to_do = [Task("correr",span = 30), Task("deures",span = 60), Task("churri",span = 120), Task("compra",span = 45), Task("cuinar",span = 60)]
-event = [Task("clase1",2*60,9*60), Task("clase2",2*60, 12*60), Task("clase3",1*60,16*60)]
-print(greedy_schedule(to_do, event))
+if __name__ == '__main__':
+    to_do = [Task("correr",span = 30), Task("deures",span = 60), Task("churri",span = 120), Task("compra",span = 45), Task("cuinar",span = 60)]
+    event = [Task("clase1",2*60,9*60), Task("clase2",2*60, 12*60), Task("clase3",1*60,16*60)]
+    print(greedy_schedule(to_do, event))
