@@ -333,13 +333,15 @@ class _SportFormState extends State<SportForm> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.teal)),
               onPressed: () {
-                List<int> daysInt;
+                bool daysPresent = false;
+                List<int> daysInt = [];
                 for (int i = 0; i < 7; ++i) {
                   if (days[i]) {
                     daysInt.add(i);
+                    daysPresent = true;
                   }
                 }
-                if (hourPresent && days != List.filled(7, false)) {
+                if (hourPresent && daysPresent) {
                   //ConfigFixedActivity
                   dataQueries["addEntries"](ConfigFixedActivity(
                       name: timeCtlName.text,
@@ -348,7 +350,7 @@ class _SportFormState extends State<SportForm> {
                       whenDia: daysInt,
                       whenMinut: List.filled(
                           daysInt.length, time.hour * 60 + time.minute)));
-                } else if (days != List.filled(7, false)) {
+                } else if (daysPresent) {
                   //ConfigFreeHour
                   dataQueries["addEntries"](ConfigFixedActivityFreeHour(
                     name: timeCtlName.text,
