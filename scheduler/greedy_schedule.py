@@ -1,28 +1,25 @@
 import numpy as np
 from classes import *
-#rest = vector de restriccions,
-#tasks= vector de to-do's
+#event = vector de eventriccions,
+#to_do= vector de to-do's
 #start, end = start/end of day
-def greedy_schedule(tasks, rest, start=8*60, end=22*60):
-    tasks.sort(reverse = True, key = lambda x: x.size)
-    rest.extend([Event("dormir",0,start), Event("dormir", end,24*60)])
-    rest.sort(key = lambda x: x.time_start)
-    schedule = dict()
+def greedy_schedule(to_do, event, start=8*60, end=22*60):
+    to_do.sort(reverse = True, key = lambda x: x.span)
+    event.extend([Task("dormir",start,0), Task("dormir", 0, end)])
+    event.sort(key = lambda x: x.start)
 
-    for t in tasks:
-        for i in range(len(rest)-1):
-            if rest[i].time_end + t.size <= rest[i+1].time_start:
-                rest.insert(i+1, Event(t.name, rest[i].time_end, rest[i].time_end + t.size))
-                schedule[t.name] = (rest[i].time_end, rest[i].time_end + t.size)
-                #schedule[t.name] = (rest[i].time_end/60, (rest[i].time_end + t.size)/60)
+    for t in to_do:
+        for i in range(len(event)-1):
+            s = event[i].start + event[i].span
+            f = event[i+1].start
+            if s + t.span <= f:
+                event.insert(i+1, Task(t.name, t.span, s))
+                #schedule[t.name] = (s, s + t.span)
                 break
+    return event
 
-    return(schedule)
 
-
-tasks = [Task("correr",span = 30), Task("deures",span = 60), Task("churri",span = 120), Task("compra",span = 45), Task("cuinar",span = 60)]
-rest = [Task("clase",2*60,9*60), Task("clase",2*60, 12*60), Task("clase",1*60,16*60)]
-#rest = [(x[0]*60,x[1]*60) for x in clases]
-
-result = greedy_schedule(tasks, rest)
-print(result)
+# test
+to_do = [Task("correr",span = 30), Task("deures",span = 60), Task("churri",span = 120), Task("compra",span = 45), Task("cuinar",span = 60)]
+event = [Task("clase1",2*60,9*60), Task("clase2",2*60, 12*60), Task("clase3",1*60,16*60)]
+print(greedy_schedule(to_do, event))
