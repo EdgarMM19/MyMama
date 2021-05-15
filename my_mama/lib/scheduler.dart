@@ -52,15 +52,9 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
 
 // Call My Mama
 // Si no hi caben les tasques, no les posa :D
-List<Activity> call_my_mama(List<ConfigActivity> configs) {
+List<Activity> call_my_mama(
+    List<ConfigActivity> configs, List<ConfigActivityFreeHour> to_do) {
   List<Activity> fixed = today_schedule(configs);
-  List<ConfigActivityFreeHour> to_do;
-
-  for (ConfigActivity c in configs) {
-    if (c is ConfigActivityFreeHour) {
-      to_do.add(c);
-    }
-  }
 
   to_do.sort((ConfigActivityFreeHour a, ConfigActivityFreeHour b) =>
       b.span.compareTo(a.span));

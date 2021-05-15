@@ -35,6 +35,7 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   }
 
   void send() async {
+    print(controller.selectedIndexes);
     //
   }
 
