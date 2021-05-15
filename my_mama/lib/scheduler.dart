@@ -59,7 +59,7 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
 // params:
 //    - configs: list with all ConfigActivity
 //    - to_do: list of all ConfigActivityFreeHour
-List<Activity> call_my_mama(
+List<Activity> callMyMama(
     List<ConfigActivity> configs, List<ConfigActivityFreeHour> to_do) {
   List<Activity> fixed = today_schedule(configs);
   List<ConfigActivityFreeHour> to_do = [];
