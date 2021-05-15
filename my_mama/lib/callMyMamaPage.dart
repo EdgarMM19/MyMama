@@ -7,13 +7,17 @@ import 'package:my_mama/connection.dart';
 import 'package:http/http.dart' as http;
 
 class CallMyMamaPage extends StatefulWidget {
-  const CallMyMamaPage({Key key}) : super(key: key);
+  final Map<String, dynamic> dataQueries;
+  CallMyMamaPage({Key key, this.dataQueries}) : super(key: key);
 
   @override
-  _CallMyMamaPageState createState() => _CallMyMamaPageState();
+  _CallMyMamaPageState createState() => _CallMyMamaPageState(dataQueries: dataQueries);
 }
 
 class _CallMyMamaPageState extends State<CallMyMamaPage> {
+  final Map<String, dynamic> dataQueries;
+  _CallMyMamaPageState({this.dataQueries});
+
   List mainList = new List();
   MultiSelectController controller = new MultiSelectController();
 

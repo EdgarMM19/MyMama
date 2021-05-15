@@ -4,11 +4,18 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 class TodoList extends StatefulWidget {
+  final Map<String, dynamic> dataQueries;
+
+  TodoList({this.dataQueries});
+
   @override
-  _TodoListState createState() => _TodoListState();
+  _TodoListState createState() => _TodoListState(dataQueries: dataQueries);
 }
 
 class _TodoListState extends State<TodoList> {
+  final Map<String, dynamic> dataQueries;
+  _TodoListState({this.dataQueries});
+
   final List<TodoItem> items = [
     TodoItem(itemName: "Real", itemInitialMinute: 9*60, itemDuration: 1, itemType: "Math"),
     TodoItem(itemName: "Complexa", itemInitialMinute: 10*60, itemDuration: 1, itemType: "Math"),

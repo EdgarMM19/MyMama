@@ -3,13 +3,17 @@ import 'package:my_mama/calendarPage.dart';
 import 'todoList.dart';
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({Key key}) : super(key: key);
+  final Map<String, dynamic> dataQueries;
+  CalendarPage({Key key, this.dataQueries}) : super(key: key);
 
   @override
-  _CalendarPageState createState() => _CalendarPageState();
+  _CalendarPageState createState() => _CalendarPageState(dataQueries: this.dataQueries);
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  final Map<String, dynamic> dataQueries;
+  _CalendarPageState({this.dataQueries});
+
   @override
   Widget build(BuildContext context) {
     double padding = 25;
@@ -31,7 +35,7 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ),
         Expanded(
-          child: TodoList()
+          child: TodoList(dataQueries: dataQueries)
         ),
       ],
     );
