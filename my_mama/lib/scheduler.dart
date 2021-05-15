@@ -54,17 +54,18 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
 // Si no hi caben les tasques, no les posa :D
 List<Activity> call_my_mama(List<ConfigActivity> configs) {
   List<Activity> fixed = today_schedule(configs);
-  List<ConfigActivity> to_do;
+  List<ConfigActivityFreeHour> to_do;
 
   for (ConfigActivity c in configs) {
-    if (!(c is ConfigFixedActivity) && !(c is ConfigFixedActivityFreeHour)) {
+    if (c is ConfigActivityFreeHour) {
       to_do.add(c);
     }
   }
 
-  to_do.sort((ConfigActivity a, ConfigActivity b) => b.span.compareTo(a.span));
+  to_do.sort((ConfigActivityFreeHour a, ConfigActivityFreeHour b) =>
+      b.span.compareTo(a.span));
 
-  for (ConfigActivity c in to_do) {
+  for (ConfigActivityFreeHour c in to_do) {
     for (var i = 0; i < fixed.length; i++) {
       int s, f;
       if (i == 0) {
