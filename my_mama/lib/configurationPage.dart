@@ -37,7 +37,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SportButton(),
+        child: SportButton(text: "Sport"),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -117,11 +117,16 @@ class _LangButtonState extends State<LangButton> {
 }
 
 class SportButton extends StatefulWidget {
+  String text;
+  SportButton({this.text});
   @override
-  _SportButtonState createState() => _SportButtonState();
+  _SportButtonState createState() => _SportButtonState(text: this.text);
 }
 
 class _SportButtonState extends State<SportButton> {
+  String text;
+  _SportButtonState({this.text});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -131,7 +136,7 @@ class _SportButtonState extends State<SportButton> {
           textColor: Colors.black,
           child: Row(children: [
             Icon(Icons.pedal_bike, color: Colors.teal),
-            Text("  Sport"),
+            Text("  Sport" + text),
           ]),
           onPressed: () {
             showDialog(
