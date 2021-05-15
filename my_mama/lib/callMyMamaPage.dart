@@ -90,7 +90,7 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
                   child: ListTile(
                     title: new Text("${mainList[index].name}"),
                     subtitle: new Text(
-                        "${mainList[index].type} for ${mainList[index].span} minutes"),
+                        "Duration: for ${mainList[index].span} minutes"),
                   ),
                   decoration: controller.isSelected(index)
                       ? new BoxDecoration(color: Colors.grey[300])
