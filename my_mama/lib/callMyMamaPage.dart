@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:my_mama/calendarPage.dart';
 import 'todoList.dart';
 import 'package:multi_select_item/multi_select_item.dart';
-import 'package:http/http.dart' as http;
+import 'package:my_mama/dataModels.dart';
 
 class CallMyMamaPage extends StatefulWidget {
   final Map<String, dynamic> dataQueries;
   CallMyMamaPage({Key key, this.dataQueries}) : super(key: key);
 
   @override
-  _CallMyMamaPageState createState() => _CallMyMamaPageState(dataQueries: dataQueries);
+  _CallMyMamaPageState createState() =>
+      _CallMyMamaPageState(dataQueries: dataQueries);
 }
 
 class _CallMyMamaPageState extends State<CallMyMamaPage> {
@@ -22,6 +23,12 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   @override
   void initState() {
     super.initState();
+
+    mainList.add(ConfigActivity(name: "Gym", genre: "Sport", span: 10));
+    mainList.add(ConfigActivity(name: "Run", genre: "Sport", span: 60));
+    mainList.add(ConfigActivity(name: "Swim", genre: "Sport", span: 120));
+    mainList.add(ConfigActivity(
+        name: "Dinner with friends", genre: "Social", span: 150));
 
     controller.disableEditingWhenNoneSelected = true;
     controller.set(mainList.length);
