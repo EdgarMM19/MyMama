@@ -3,6 +3,8 @@ import 'package:my_mama/calendarPage.dart';
 import 'todoList.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import 'package:weekday_selector/weekday_selector.dart';
+import 'connection.dart';
 
 class ConfigurationPage extends StatefulWidget {
   const ConfigurationPage({Key key}) : super(key: key);
@@ -140,7 +142,7 @@ class _SportButtonState extends State<SportButton> {
                       borderRadius: BorderRadius.circular(40)),
                   elevation: 16,
                   child: Container(
-                    height: 400.0,
+                    height: 600.0,
                     width: 360.0,
                     child: ListView(
                       children: [
@@ -165,6 +167,11 @@ class _SportButtonState extends State<SportButton> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
                           child: SportForm(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: TaskList(),
                         )
                       ],
                     ),
@@ -446,6 +453,8 @@ class SportForm extends StatefulWidget {
 
 class _SportFormState extends State<SportForm> {
   final _formKey = GlobalKey<FormState>();
+  final days = List.filled(7, true);
+
   TextEditingController timeCtl = TextEditingController();
   TextEditingController timeCtl2 = TextEditingController();
   @override
@@ -497,6 +506,21 @@ class _SportFormState extends State<SportForm> {
             ],
             validator: (value) {},
           ),
+          WeekdaySelector(
+            onChanged: (int day) {
+              setState(() {
+                // Use module % 7 as Sunday's index in the array is 0 and
+                // DateTime.sunday constant integer value is 7.
+                final index = day % 7;
+                // We "flip" the value in this example, but you may also
+                // perform validation, a DB write, an HTTP call or anything
+                // else before you actually flip the value,
+                // it's up to your app's needs.
+                days[index] = !days[index];
+              });
+            },
+            values: days,
+          ),
           Center(
               child: Padding(
             padding:
@@ -515,5 +539,43 @@ class _SportFormState extends State<SportForm> {
         ],
       ),
     );
+  }
+}
+
+class TaskList extends StatefulWidget {
+  @override
+  _TaskListState createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskList> {
+  List mainList = new List();
+
+  @override
+  void initState() {
+    super.initState();
+
+    mainList.add(Task("Gym", 10, 250, "Sport"));
+    mainList.add(Task("Run", 60, 250, "Sport"));
+    mainList.add(Task("Swim", 120, 250, "Sport"));
+    mainList.add(Task("Dinner with friends", 180, 1200, "Social"));
+  }
+
+  Widget build(BuildContext context) {
+    return Container(
+        height: 300,
+        child: ListView.builder(
+          // Let the ListView know how many items it needs to build.
+          itemCount: mainList.length,
+          // Provide a builder function. This is where the magic happens.
+          // Convert each item into a widget based on the type of item it is.
+          itemBuilder: (context, index) {
+            final item = mainList[index];
+
+            return ListTile(
+              title: Text(item.name),
+              subtitle: Text("${item.span}"),
+            );
+          },
+        ));
   }
 }
