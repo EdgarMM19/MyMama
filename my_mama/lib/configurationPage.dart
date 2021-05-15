@@ -5,7 +5,6 @@ import 'todoList.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:weekday_selector/weekday_selector.dart';
-import 'connection.dart';
 import 'dataModels.dart';
 
 class ConfigurationPage extends StatefulWidget {
@@ -213,16 +212,24 @@ class _SportButtonState extends State<SportButton> {
 }
 
 class SportForm extends StatefulWidget {
+  String type;
+  SportForm({this.type});
+
   @override
-  _SportFormState createState() => _SportFormState();
+  _SportFormState createState() => _SportFormState(type: this.type);
 }
 
 class _SportFormState extends State<SportForm> {
+  String type; // type
+  _SportFormState({this.type});
   final _formKey = GlobalKey<FormState>();
-  final days = List.filled(7, true);
+  final days = List.filled(7, false); // dies de la setmana
+  TimeOfDay time = TimeOfDay.now(); // hora
 
-  TextEditingController timeCtl = TextEditingController();
-  TextEditingController timeCtl2 = TextEditingController();
+  TextEditingController timeCtl = TextEditingController(); //
+  TextEditingController timeCtlName = TextEditingController(); // name
+
+  TextEditingController timeCtl2 = TextEditingController(); // duration
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -231,6 +238,8 @@ class _SportFormState extends State<SportForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
+            controller: timeCtlName, // add this line.
+
             decoration: const InputDecoration(
               hintText: 'Enter task name',
             ),
@@ -244,7 +253,6 @@ class _SportFormState extends State<SportForm> {
               labelText: 'Start time (if one preferred)',
             ),
             onTap: () async {
-              TimeOfDay time = TimeOfDay.now();
               FocusScope.of(context).requestFocus(new FocusNode());
 
               TimeOfDay picked =
@@ -296,8 +304,7 @@ class _SportFormState extends State<SportForm> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.teal)),
               onPressed: () {
-                // Validate will return true if the form is valid, or false if
-                // the form is invalid.
+                // aqui crea tasks
               },
               child: Text('Create task'),
             ),
@@ -309,7 +316,7 @@ class _SportFormState extends State<SportForm> {
 }
 
 class TaskList extends StatefulWidget {
-  String type;
+  final String type;
   TaskList({this.type});
   @override
   _TaskListState createState() => _TaskListState(type: this.type);
