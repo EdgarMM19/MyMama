@@ -30,24 +30,19 @@ class _TodoListState extends State<TodoList> {
             }
             else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
               List<ConfigActivity> data = snapshot.data;
-              print(data);
               List<Activity> activities = today_schedule(data);
-              print(activities);
               List<TodoItem> todos = activities.map<TodoItem>(
                       (e) =>
                       TodoItem(itemName: e.config.name,
                           itemInitialMinute: e.start,
                           itemDuration: e.config.span,
                           itemType: e.config.genre)).toList();
-              print(todos);
               if (todos.length == 0) return Center(child: Text("Try to schedule some activites!"),);
               return ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: todos.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  print(index);
-                  print(todos);
                   final item = todos[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -118,7 +113,7 @@ class TodoItem extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Container(
-                height: 40*max(itemDuration, 1),
+                height: 40*max(itemDuration/60, 1),
                 decoration: BoxDecoration(
                   color: randomColor(),
                 ),
