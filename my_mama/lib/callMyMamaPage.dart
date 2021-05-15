@@ -12,6 +12,11 @@ class CallMyMamaPage extends StatefulWidget {
 class _CallMyMamaPageState extends State<CallMyMamaPage> {
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return TextButton(
+      child: Text("PRESS HERE"),
+      onPressed: () {
+        print("Mhan pitjat");
+      },
+    );
   }
 }
