@@ -343,7 +343,10 @@ class _TaskListState extends State<TaskList> {
                     ),
                     child: Column(
                       children: [
-                        Text(item.name),
+                        Text(
+                          item.name.toUpperCase(),
+                          style: TextStyle(fontSize: 22),
+                        ),
                         Text("Duration ${item.span} minutes")
                       ],
                     )));
