@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:my_mama/calendarPage.dart';
 import 'package:my_mama/dataModels.dart';
 import 'todoList.dart';
@@ -248,7 +249,7 @@ class _SportFormState extends State<SportForm> {
   final Map<String, dynamic> dataQueries;
 
   _SportFormState({this.type, this.dataQueries});
-
+  bool hourPresent = false;
   final _formKey = GlobalKey<FormState>();
   final days = List.filled(7, false); // dies de la setmana
   TimeOfDay time = TimeOfDay.now(); // hora
@@ -285,6 +286,7 @@ class _SportFormState extends State<SportForm> {
               TimeOfDay picked =
                   await showTimePicker(context: context, initialTime: time);
               if (picked != null && picked != time) {
+                hourPresent = true;
                 var now = DateTime.now();
                 var dt = DateTime(
                     now.year, now.month, now.day, picked.hour, picked.minute);
@@ -331,10 +333,37 @@ class _SportFormState extends State<SportForm> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.teal)),
               onPressed: () {
-                dataQueries["addEntries"](ConfigActivity(
+                List<int> daysInt;
+                for (int i = 0; i < 7; ++i) {
+                  if (days[i]) {
+                    daysInt.add(i);
+                  }
+                }
+                if (hourPresent && days != List.filled(7, false)) {
+                  //ConfigFixedActivity
+                  dataQueries["addEntries"](ConfigFixedActivity(
+                      name: timeCtlName.text,
+                      genre: type,
+                      span: int.parse(timeCtl2.text),
+                      whenDia: daysInt,
+                      whenMinut: List.filled(
+                          daysInt.length, time.hour * 60 + time.minute)));
+                } else if (days != List.filled(7, false)) {
+                  //ConfigFreeHour
+                  dataQueries["addEntries"](ConfigFixedActivityFreeHour(
                     name: timeCtlName.text,
                     genre: type,
-                    span: int.parse(timeCtl2.text)));
+                    span: int.parse(timeCtl2.text),
+                    whenDia: daysInt,
+                  ));
+                } else {
+                  //ConfigActivityFreeHour
+                  dataQueries["addEntries"](ConfigActivityFreeHour(
+                    name: timeCtlName.text,
+                    genre: type,
+                    span: int.parse(timeCtl2.text),
+                  ));
+                }
               },
               child: Text('Create task'),
             ),
