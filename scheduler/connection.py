@@ -1,5 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
+import json
+
+testdict = {'a':1, 'b':2}
+testjson = json.dumps(testdict)
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
@@ -9,8 +13,11 @@ class S(BaseHTTPRequestHandler):
 
     def do_GET(self):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
-        self._set_response()
-        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        #self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
+        self.wfile.write(testjson.encode('utf-8'))
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
