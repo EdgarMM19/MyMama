@@ -41,19 +41,19 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: MealButton(),
+        child: SportButton(text: "Meal"),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: HigieneButton(),
+        child: SportButton(text: "Higiene"),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: HomeWorkButton(),
+        child: SportButton(text: "Homework"),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: LecturesButton(),
+        child: SportButton(text: "Lectures"),
       ),
     ]));
   }
@@ -126,8 +126,23 @@ class SportButton extends StatefulWidget {
 class _SportButtonState extends State<SportButton> {
   String text;
   _SportButtonState({this.text});
-
+  IconData icon;
   @override
+  void initState() {
+    super.initState();
+    if (text == "Sport") {
+      icon = Icons.pedal_bike;
+    } else if (text == "Meal") {
+      icon = Icons.fastfood;
+    } else if (text == "Higiene") {
+      icon = Icons.clean_hands;
+    } else if (text == "Homework") {
+      icon = Icons.book;
+    } else if (text == "Lectures") {
+      icon = Icons.library_books;
+    }
+  }
+
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 50.0),
@@ -135,8 +150,8 @@ class _SportButtonState extends State<SportButton> {
           padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
           textColor: Colors.black,
           child: Row(children: [
-            Icon(Icons.pedal_bike, color: Colors.teal),
-            Text("  Sport" + text),
+            Icon(icon, color: Colors.teal),
+            Text("  " + text),
           ]),
           onPressed: () {
             showDialog(
@@ -154,7 +169,7 @@ class _SportButtonState extends State<SportButton> {
                         SizedBox(height: 20),
                         Center(
                           child: Text(
-                            "Add sport activity",
+                            "Add " + text + " activity",
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.teal,
@@ -177,266 +192,6 @@ class _SportButtonState extends State<SportButton> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
                           child: TaskList(),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        ));
-  }
-}
-
-class MealButton extends StatefulWidget {
-  @override
-  _MealButtonState createState() => _MealButtonState();
-}
-
-class _MealButtonState extends State<MealButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 50.0),
-        child: RaisedButton(
-          padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-          textColor: Colors.black,
-          child: Row(children: [
-            Icon(Icons.fastfood, color: Colors.teal),
-            Text("  Meals"),
-          ]),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40)),
-                  elevation: 16,
-                  child: Container(
-                    height: 400.0,
-                    width: 360.0,
-                    child: ListView(
-                      children: [
-                        SizedBox(height: 20),
-                        Center(
-                          child: Text(
-                            "Add sport activity",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.teal,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        const Divider(
-                          height: 20,
-                          thickness: 5,
-                          indent: 20,
-                          endIndent: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: SportForm(),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        ));
-  }
-}
-
-class LecturesButton extends StatefulWidget {
-  @override
-  _LecturesButtonState createState() => _LecturesButtonState();
-}
-
-class _LecturesButtonState extends State<LecturesButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 50.0),
-        child: RaisedButton(
-          padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-          textColor: Colors.black,
-          child: Row(children: [
-            Icon(Icons.book, color: Colors.teal),
-            Text("  Lectures"),
-          ]),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40)),
-                  elevation: 16,
-                  child: Container(
-                    height: 400.0,
-                    width: 360.0,
-                    child: ListView(
-                      children: [
-                        SizedBox(height: 20),
-                        Center(
-                          child: Text(
-                            "Add sport activity",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.teal,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        const Divider(
-                          height: 20,
-                          thickness: 5,
-                          indent: 20,
-                          endIndent: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: SportForm(),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        ));
-  }
-}
-
-class HomeWorkButton extends StatefulWidget {
-  @override
-  _HomeWorkButtonState createState() => _HomeWorkButtonState();
-}
-
-class _HomeWorkButtonState extends State<HomeWorkButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 50.0),
-        child: RaisedButton(
-          padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-          textColor: Colors.black,
-          child: Row(children: [
-            Icon(Icons.library_books, color: Colors.teal),
-            Text("  Homework"),
-          ]),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40)),
-                  elevation: 16,
-                  child: Container(
-                    height: 400.0,
-                    width: 360.0,
-                    child: ListView(
-                      children: [
-                        SizedBox(height: 20),
-                        Center(
-                          child: Text(
-                            "Add sport activity",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.teal,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        const Divider(
-                          height: 20,
-                          thickness: 5,
-                          indent: 20,
-                          endIndent: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: SportForm(),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        ));
-  }
-}
-
-class HigieneButton extends StatefulWidget {
-  @override
-  _HigieneButtonState createState() => _HigieneButtonState();
-}
-
-class _HigieneButtonState extends State<HigieneButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 50.0),
-        child: RaisedButton(
-          padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
-          textColor: Colors.black,
-          child: Row(children: [
-            Icon(Icons.clean_hands, color: Colors.teal),
-            Text("  Hygiene"),
-          ]),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40)),
-                  elevation: 16,
-                  child: Container(
-                    height: 400.0,
-                    width: 360.0,
-                    child: ListView(
-                      children: [
-                        SizedBox(height: 20),
-                        Center(
-                          child: Text(
-                            "Add sport activity",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.teal,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        const Divider(
-                          height: 20,
-                          thickness: 5,
-                          indent: 20,
-                          endIndent: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: SportForm(),
                         )
                       ],
                     ),

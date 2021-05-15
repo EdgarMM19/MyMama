@@ -1,5 +1,3 @@
-
-
 class ConfigActivity {
   String name;
   String genre;
@@ -13,19 +11,17 @@ class ConfigActivity {
     this.span = json["span"] as int;
   }
 
-  Map<String, dynamic> toJson() => {
-    "name": this.name,
-    "genre": this.genre,
-    "span": span,
-    "type": 0
-  };
+  Map<String, dynamic> toJson() =>
+      {"name": this.name, "genre": this.genre, "span": span, "type": 0};
 }
 
 class ConfigFixedActivity extends ConfigActivity {
   List<int> whenMinut;
   List<int> whenDia;
 
-  ConfigFixedActivity({String name, String genre, int span, this.whenMinut, this.whenDia}): super(name: name, genre: genre, span: span);
+  ConfigFixedActivity(
+      {String name, String genre, int span, this.whenMinut, this.whenDia})
+      : super(name: name, genre: genre, span: span);
 
   ConfigFixedActivity.fromJson(Map<String, dynamic> json) {
     this.name = json["name"] as String;
@@ -36,20 +32,21 @@ class ConfigFixedActivity extends ConfigActivity {
   }
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "genre": genre,
-    "span": span,
-    "type": 1,
-    "whenMinut": whenMinut,
-    "whenDia": whenDia,
-  };
-
+        "name": name,
+        "genre": genre,
+        "span": span,
+        "type": 1,
+        "whenMinut": whenMinut,
+        "whenDia": whenDia,
+      };
 }
 
 class ConfigFixedActivityFreeHour extends ConfigActivity {
   List<int> whenDia;
 
-  ConfigFixedActivityFreeHour({String name, String genre, int span, this.whenDia}): super(name: name, genre: genre, span: span);
+  ConfigFixedActivityFreeHour(
+      {String name, String genre, int span, this.whenDia})
+      : super(name: name, genre: genre, span: span);
 
   ConfigFixedActivityFreeHour.fromJson(Map<String, dynamic> json) {
     this.name = json["name"] as String;
@@ -59,15 +56,16 @@ class ConfigFixedActivityFreeHour extends ConfigActivity {
   }
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "genre": genre,
-    "span": span,
-    "type": 2,
-    "whenDia": whenDia,
-  };
+        "name": name,
+        "genre": genre,
+        "span": span,
+        "type": 2,
+        "whenDia": whenDia,
+      };
 }
 
-class Activity{
+class Activity {
   ConfigActivity config;
   int start;
+  Activity({this.config, this.start});
 }
