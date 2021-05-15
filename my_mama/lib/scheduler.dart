@@ -2,10 +2,9 @@ import 'package:my_mama/dataModels.dart';
 
 // get today schedule
 List<Activity> today_schedule(List<ConfigActivity> configs) {
-  List<Activity> fixed;
-  List<ConfigActivity> to_do;
+  List<Activity> fixed = [];
+  List<ConfigActivity> to_do = [];
 
-  //
   var today = DateTime.now().weekday;
   // separate into two lists
   for (ConfigActivity c in configs) {
@@ -54,7 +53,7 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
 // Si no hi caben les tasques, no les posa :D
 List<Activity> call_my_mama(List<ConfigActivity> configs) {
   List<Activity> fixed = today_schedule(configs);
-  List<ConfigActivityFreeHour> to_do;
+  List<ConfigActivityFreeHour> to_do = [];
 
   for (ConfigActivity c in configs) {
     if (c is ConfigActivityFreeHour) {

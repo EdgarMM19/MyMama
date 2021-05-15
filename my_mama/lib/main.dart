@@ -40,13 +40,25 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _prefs.then((SharedPreferences prefs) {
       prefs.clear();
-      prefs.setString("data", "{}");
+      prefs.setString("data", jsonEncode(
+          [
+            ConfigFixedActivityFreeHour(name: "Running", span: 60, genre: "Sport", whenDia: [0, 3, 5]),
+            ConfigFixedActivity(name: "Real", span: 60, genre: "Math", whenDia: [0, 3, 5], whenMinut: [12*60, 13*60, 9*60]),
+            ConfigActivityFreeHour(name: "Rentadora", span: 30, genre: "Higyene")
+          ]
+      ));
     });
   }
 
   Future<List<ConfigActivity>> consultaConfigs() {
     return _prefs.then((SharedPreferences pref) {
-      List<ConfigActivity> listConfig = jsonDecode(pref.getString("data")).map<ConfigActivity>((e) => ConfigActivity.fromJson(e)).toList();
+      List<ConfigActivity> listConfig = jsonDecode(pref.getString("data")).map<ConfigActivity>(
+              (e) {
+                if (e["type"] == 1) return ConfigFixedActivity.fromJson(e);
+                if (e["type"] == 2) return ConfigFixedActivityFreeHour.fromJson(e);
+                if (e["type"] == 3) return ConfigActivityFreeHour.fromJson(e);
+              }
+      ).toList();
       return listConfig;
     });
   }

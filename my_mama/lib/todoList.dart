@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dataModels.dart';
 import 'scheduler.dart';
@@ -18,39 +19,49 @@ class _TodoListState extends State<TodoList> {
   final Map<String, dynamic> dataQueries;
   _TodoListState({this.dataQueries});
 
-  final List<TodoItem> items = [
-    TodoItem(itemName: "Real", itemInitialMinute: 9*60, itemDuration: 1, itemType: "Math"),
-    TodoItem(itemName: "Complexa", itemInitialMinute: 10*60, itemDuration: 1, itemType: "Math"),
-    TodoItem(itemName: "Parallelism", itemInitialMinute: 11*60, itemDuration: 1, itemType: "Info"),
-    TodoItem(itemName: "Real", itemInitialMinute: 13*60, itemDuration: 2, itemType: "Math")
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Placeholder();/*Container(
+    return Container(
         child: FutureBuilder(
           future: dataQueries["consultaConfigs"](),
           builder: (context, snapshot) {
-            List<TodoItem> acti = today_schedule(snapshot.data).map<TodoItem>(
-                    (e) => TodoItem(itemName: e.config.name,
-                                    itemInitialMinute: e.start,
-                                    itemDuration: e.config.span,
-                                    itemType: e.config.genre)).toList();
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: acti.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final item = acti[index];
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: item,
-                );
-              },
-            );
-          },
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+            else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+              List<ConfigActivity> data = snapshot.data;
+              print(data);
+              List<Activity> activities = today_schedule(data);
+              print(activities);
+              List<TodoItem> todos = activities.map<TodoItem>(
+                      (e) =>
+                      TodoItem(itemName: e.config.name,
+                          itemInitialMinute: e.start,
+                          itemDuration: e.config.span,
+                          itemType: e.config.genre)).toList();
+              print(todos);
+              if (todos.length == 0) return Center(child: Text("Try to schedule some activites!"),);
+              
+              return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: todos.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final item = todos[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: item,
+                  );
+                },
+              );
+            }
+            else {
+              print(snapshot.error);
+              return Placeholder();
+            }
+          }
         )
-      );*/
+      );
   }
 }
 

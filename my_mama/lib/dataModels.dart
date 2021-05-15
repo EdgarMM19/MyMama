@@ -27,8 +27,8 @@ class ConfigFixedActivity extends ConfigActivity {
     this.name = json["name"] as String;
     this.genre = json["genre"] as String;
     this.span = json["span"] as int;
-    this.whenMinut = json["whenMinut"] as List<int>;
-    this.whenDia = json["whenDia"] as List<int>;
+    this.whenMinut = json["whenMinut"].map<int>((e) => e as int).toList();
+    this.whenDia = json["whenDia"].map<int>((e) => e as int).toList();
   }
 
   Map<String, dynamic> toJson() => {
@@ -52,7 +52,7 @@ class ConfigFixedActivityFreeHour extends ConfigActivity {
     this.name = json["name"] as String;
     this.genre = json["genre"] as String;
     this.span = json["span"] as int;
-    this.whenDia = json["whenDia"] as List<int>;
+    this.whenDia = json["whenDia"].map<int>((e) => e as int).toList();
   }
 
   Map<String, dynamic> toJson() => {
@@ -65,11 +65,7 @@ class ConfigFixedActivityFreeHour extends ConfigActivity {
 }
 
 class ConfigActivityFreeHour extends ConfigActivity {
-  String name;
-  String genre;
-  int span;
-
-  ConfigActivityFreeHour({this.name, this.genre, this.span});
+  ConfigActivityFreeHour({String name, String genre, int span}): super(name: name, genre: genre, span: span);
 
   ConfigActivityFreeHour.fromJson(Map<String, dynamic> json) {
     this.name = json["name"] as String;
