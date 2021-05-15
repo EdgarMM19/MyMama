@@ -34,9 +34,15 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     controller.set(mainList.length);
   }
 
-  void send() async {
+  void getHelpFromMama(/*List<ConfigActivity> configs*/) async {
+    // select objects
+    List<ConfigFixedActivityFreeHour> selection;
+    for (int idx in controller.selectedIndexes) {
+      selection.add(mainList[idx]);
+    }
     print(controller.selectedIndexes);
-    //
+    // List<Activities> newSchedule = callMyMama(configs, selection);
+    // set newSchedule on
   }
 
   void delete() {
@@ -103,7 +109,7 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: new TextButton(
-          onPressed: send,
+          onPressed: getHelpFromMama,
           child: Text(
             "  Call myMama  ",
             style: TextStyle(color: Colors.white, fontSize: 45),
