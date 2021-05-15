@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'MyMama',
       theme: new ThemeData(
+        fontFamily: 'Montserrat',
         primarySwatch: Colors.blue,
         primaryColor: const Color(0xFF2196f3),
         accentColor: const Color(0xFF2196f3),
