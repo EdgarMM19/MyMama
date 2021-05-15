@@ -3,6 +3,8 @@ import 'package:my_mama/calendarPage.dart';
 import 'todoList.dart';
 import 'package:multi_select_item/multi_select_item.dart';
 import 'connection.dart';
+import 'package:my_mama/connection.dart';
+import 'package:http/http.dart' as http;
 
 class CallMyMamaPage extends StatefulWidget {
   const CallMyMamaPage({Key key}) : super(key: key);
@@ -28,13 +30,11 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     controller.set(mainList.length);
   }
 
-  void send() {
-    List listToSend;
-    var list = controller.selectedIndexes;
-    list.forEach((element) {
-      listToSend.add(element);
-    });
-    // send this list as json or i dont know
+  void send() async {
+    await sendTasks(mainList);
+    await Future.delayed(Duration(milliseconds: 500));
+    List<Task> algo = await fetchTasks(http.Client());
+    print(algo);
   }
 
   void delete() {

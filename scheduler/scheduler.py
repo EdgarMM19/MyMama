@@ -34,7 +34,7 @@ def task_list_to_dict(tasks):
     count = 0
     task_dict = {}
     for task in solution:
-        task_dict{"task"+str(count)} = {
+        task_dict["task"+str(count)] = {
             "name": task.name,
             "type": task.type,
             "span": task.span,

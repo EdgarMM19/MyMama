@@ -51,7 +51,7 @@ Map<String, dynamic> getJSON(List<Task> tasklist) {
 
 Future<http.Response> sendTasks(List<Task> tasklist) {
   return http.post(
-    Uri.https('jsonplaceholder.typicode.com', ''),
+    Uri.https('http://localhost:8080', ''),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
