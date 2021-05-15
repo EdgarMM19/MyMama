@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'todoList.dart';
+import 'package:my_mama/calendarPage.dart';
+import 'package:my_mama/callMyMamaPage.dart';
+import 'package:my_mama/configurationPage.dart';
 
 void main() {
   runApp(new MyApp());
@@ -29,35 +31,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final double padding = 25;
+    final PageController controller = PageController(initialPage: 1);
     return Scaffold(
       body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: padding, vertical: padding),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("MyMama",
-                      style: TextStyle(
-                          fontSize: 72.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.teal)),
-                ],
-              ),
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: padding, vertical: padding),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [TodoList()],
-              ),
-            ),
-          ],
-        ),
+        child: PageView(
+          scrollDirection: Axis.horizontal,
+          controller: controller,
+          children: const <Widget> [
+            ConfigurationPage(),
+            CalendarPage(),
+            CallMyMamaPage()
+          ]
+        )
       ),
     );
   }
