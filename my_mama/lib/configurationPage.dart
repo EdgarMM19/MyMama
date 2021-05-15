@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_mama/calendarPage.dart';
 import 'todoList.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
 
 class ConfigurationPage extends StatefulWidget {
   const ConfigurationPage({Key key}) : super(key: key);
@@ -138,11 +140,11 @@ class _SportButtonState extends State<SportButton> {
                     height: 400.0,
                     width: 360.0,
                     child: ListView(
-                      children: <Widget>[
+                      children: [
                         SizedBox(height: 20),
                         Center(
                           child: Text(
-                            "Leaderboard",
+                            "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.blue,
@@ -150,6 +152,17 @@ class _SportButtonState extends State<SportButton> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        const Divider(
+                          height: 20,
+                          thickness: 5,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: SportForm(),
+                        )
                       ],
                     ),
                   ),
@@ -192,11 +205,11 @@ class _MealButtonState extends State<MealButton> {
                     height: 400.0,
                     width: 360.0,
                     child: ListView(
-                      children: <Widget>[
+                      children: [
                         SizedBox(height: 20),
                         Center(
                           child: Text(
-                            "Leaderboard",
+                            "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.blue,
@@ -204,6 +217,17 @@ class _MealButtonState extends State<MealButton> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        const Divider(
+                          height: 20,
+                          thickness: 5,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: SportForm(),
+                        )
                       ],
                     ),
                   ),
@@ -246,11 +270,11 @@ class _LecturesButtonState extends State<LecturesButton> {
                     height: 400.0,
                     width: 360.0,
                     child: ListView(
-                      children: <Widget>[
+                      children: [
                         SizedBox(height: 20),
                         Center(
                           child: Text(
-                            "Leaderboard",
+                            "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.blue,
@@ -258,6 +282,17 @@ class _LecturesButtonState extends State<LecturesButton> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        const Divider(
+                          height: 20,
+                          thickness: 5,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: SportForm(),
+                        )
                       ],
                     ),
                   ),
@@ -300,11 +335,11 @@ class _HomeWorkButtonState extends State<HomeWorkButton> {
                     height: 400.0,
                     width: 360.0,
                     child: ListView(
-                      children: <Widget>[
+                      children: [
                         SizedBox(height: 20),
                         Center(
                           child: Text(
-                            "Leaderboard",
+                            "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.blue,
@@ -312,6 +347,17 @@ class _HomeWorkButtonState extends State<HomeWorkButton> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        const Divider(
+                          height: 20,
+                          thickness: 5,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: SportForm(),
+                        )
                       ],
                     ),
                   ),
@@ -354,11 +400,11 @@ class _HigieneButtonState extends State<HigieneButton> {
                     height: 400.0,
                     width: 360.0,
                     child: ListView(
-                      children: <Widget>[
+                      children: [
                         SizedBox(height: 20),
                         Center(
                           child: Text(
-                            "Leaderboard",
+                            "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Colors.blue,
@@ -366,6 +412,17 @@ class _HigieneButtonState extends State<HigieneButton> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        const Divider(
+                          height: 20,
+                          thickness: 5,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: SportForm(),
+                        )
                       ],
                     ),
                   ),
@@ -376,5 +433,79 @@ class _HigieneButtonState extends State<HigieneButton> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ));
+  }
+}
+
+class SportForm extends StatefulWidget {
+  @override
+  _SportFormState createState() => _SportFormState();
+}
+
+class _SportFormState extends State<SportForm> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController timeCtl = TextEditingController();
+  TextEditingController timeCtl2 = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            decoration: const InputDecoration(
+              hintText: 'Enter task name',
+            ),
+            validator: (value) {
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: timeCtl, // add this line.
+            decoration: InputDecoration(
+              labelText: 'Start time (if one preferred)',
+            ),
+            onTap: () async {
+              TimeOfDay time = TimeOfDay.now();
+              FocusScope.of(context).requestFocus(new FocusNode());
+
+              TimeOfDay picked =
+                  await showTimePicker(context: context, initialTime: time);
+              if (picked != null && picked != time) {
+                var now = DateTime.now();
+                var dt = DateTime(
+                    now.year, now.month, now.day, picked.hour, picked.minute);
+                String _formattetime = DateFormat.Hm().format(dt);
+                timeCtl.text = _formattetime; // add this line.
+                setState(() {
+                  time = picked;
+                });
+              }
+            },
+            validator: (value) {},
+          ),
+          TextFormField(
+            controller: timeCtl2, // add this line.
+            decoration: new InputDecoration(
+                labelText: "Enter the activity duration in minutes"),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            validator: (value) {},
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                // Validate will return true if the form is valid, or false if
+                // the form is invalid.
+              },
+              child: Text('Create task'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
