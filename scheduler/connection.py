@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
+import scheduler
 
 testdict = {'a':1, 'b':2}
 testjson = json.dumps(testdict)
@@ -12,12 +13,15 @@ class S(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        if self._last_request is None:
+            raise Exception('GET before POST')
+
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
         #self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
-        self.wfile.write(testjson.encode('utf-8'))
+        self.wfile.write(self._last_request.encode('utf-8'))
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
@@ -27,6 +31,11 @@ class S(BaseHTTPRequestHandler):
 
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
+        received = post_data.decode('utf-8')
+
+        self._last_request = scheduler.schedule(received)
+
+
 
 def run(server_class=HTTPServer, handler_class=S, port=8080):
     logging.basicConfig(level=logging.INFO)
