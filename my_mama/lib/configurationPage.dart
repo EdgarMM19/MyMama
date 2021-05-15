@@ -147,7 +147,7 @@ class _SportButtonState extends State<SportButton> {
                             "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.blue,
+                                color: Colors.teal,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -212,7 +212,7 @@ class _MealButtonState extends State<MealButton> {
                             "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.blue,
+                                color: Colors.teal,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -277,7 +277,7 @@ class _LecturesButtonState extends State<LecturesButton> {
                             "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.blue,
+                                color: Colors.teal,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -342,7 +342,7 @@ class _HomeWorkButtonState extends State<HomeWorkButton> {
                             "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.blue,
+                                color: Colors.teal,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -407,7 +407,7 @@ class _HigieneButtonState extends State<HigieneButton> {
                             "Add sport activity",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.blue,
+                                color: Colors.teal,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -494,16 +494,21 @@ class _SportFormState extends State<SportForm> {
             ],
             validator: (value) {},
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+          Center(
+              child: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
             child: ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.teal)),
               onPressed: () {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
               },
               child: Text('Create task'),
             ),
-          ),
+          )),
         ],
       ),
     );
