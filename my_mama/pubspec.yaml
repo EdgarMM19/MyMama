@@ -33,6 +33,7 @@ dependencies:
   flutter_duration_picker: ^1.0.4
   intl: ^0.15.0
   flutter_webview_plugin: ^0.3.11
+  crypto: ^3.0.1
 
 dev_dependencies:
   flutter_test:
