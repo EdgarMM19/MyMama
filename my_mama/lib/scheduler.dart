@@ -5,8 +5,7 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
   List<Activity> fixed = [];
   List<ConfigActivity> to_do = [];
 
-  var today = DateTime.now().weekday;
-  print(today);
+  var today = DateTime.now().weekday - 1;
 
   // separate into two lists
   for (ConfigActivity c in configs) {
