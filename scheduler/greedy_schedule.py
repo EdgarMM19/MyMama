@@ -7,7 +7,6 @@ def greedy_schedule(to_do, event, start=8*60, end=22*60):
     to_do.sort(reverse = True, key = lambda x: x.span)
     event.extend([Task("dormir",start,0), Task("dormir", 0, end)])
     event.sort(key = lambda x: x.start)
-    schedule = dict()
 
     for t in to_do:
         for i in range(len(event)-1):
@@ -18,9 +17,7 @@ def greedy_schedule(to_do, event, start=8*60, end=22*60):
                 #schedule[t.name] = (s, s + t.span)
                 schedule[t.name] = (s/60, (s + t.span)/60)
                 break
-    for e in event:
-        schedule[e.name] = (e.start/60, (e.start + e.span)/60)
-    return schedule
+    return event
 
 
 # test
