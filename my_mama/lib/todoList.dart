@@ -2,6 +2,8 @@ import 'dart:math';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'dataModels.dart';
+import 'scheduler.dart';
 
 class TodoList extends StatefulWidget {
   final Map<String, dynamic> dataQueries;
@@ -26,15 +28,25 @@ class _TodoListState extends State<TodoList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          itemCount: items.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            final item = items[index];
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: item,
+        child: FutureBuilder(
+          future: dataQueries["consultaConfigs"](),
+          builder: (context, snapshot) {
+            List<TodoItem> acti = today_schedule(snapshot.data).map<TodoItem>(
+                    (e) => TodoItem(itemName: e.config.name,
+                                    itemInitialMinute: e.start,
+                                    itemDuration: e.config.span,
+                                    itemType: e.config.genre)).toList();
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: acti.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final item = acti[index];
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: item,
+                );
+              },
             );
           },
         )

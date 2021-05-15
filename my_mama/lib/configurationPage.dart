@@ -5,7 +5,6 @@ import 'todoList.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:weekday_selector/weekday_selector.dart';
-import 'connection.dart';
 import 'dataModels.dart';
 
 class ConfigurationPage extends StatefulWidget {
