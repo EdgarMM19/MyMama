@@ -41,7 +41,7 @@ class _TodoListState extends State<TodoList> {
                           itemType: e.config.genre)).toList();
               print(todos);
               if (todos.length == 0) return Center(child: Text("Try to schedule some activites!"),);
-              
+
               return ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: todos.length,
