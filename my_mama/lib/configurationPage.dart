@@ -42,23 +42,38 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SportButton(text: "Sport"),
+        child: SportButton(
+          text: "Sport",
+          dataQueries: dataQueries,
+        ),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SportButton(text: "Meal"),
+        child: SportButton(
+          text: "Meal",
+          dataQueries: dataQueries,
+        ),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SportButton(text: "Higiene"),
+        child: SportButton(
+          text: "Higiene",
+          dataQueries: dataQueries,
+        ),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SportButton(text: "Homework"),
+        child: SportButton(
+          text: "Homework",
+          dataQueries: dataQueries,
+        ),
       ),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: SportButton(text: "Lectures"),
+        child: SportButton(
+          text: "Lectures",
+          dataQueries: dataQueries,
+        ),
       ),
     ]));
   }
@@ -123,14 +138,18 @@ class _LangButtonState extends State<LangButton> {
 
 class SportButton extends StatefulWidget {
   String text;
-  SportButton({this.text});
+  final Map<String, dynamic> dataQueries;
+
+  SportButton({this.text, this.dataQueries});
   @override
   _SportButtonState createState() => _SportButtonState(text: this.text);
 }
 
 class _SportButtonState extends State<SportButton> {
   String text;
-  _SportButtonState({this.text});
+  final Map<String, dynamic> dataQueries;
+
+  _SportButtonState({this.text, this.dataQueries});
   IconData icon;
   @override
   void initState() {
@@ -191,7 +210,10 @@ class _SportButtonState extends State<SportButton> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
-                          child: SportForm(),
+                          child: SportForm(
+                            type: text,
+                            dataQueries: dataQueries,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -213,7 +235,9 @@ class _SportButtonState extends State<SportButton> {
 
 class SportForm extends StatefulWidget {
   String type;
-  SportForm({this.type});
+  final Map<String, dynamic> dataQueries;
+
+  SportForm({this.type, this.dataQueries});
 
   @override
   _SportFormState createState() => _SportFormState(type: this.type);
@@ -221,7 +245,10 @@ class SportForm extends StatefulWidget {
 
 class _SportFormState extends State<SportForm> {
   String type; // type
-  _SportFormState({this.type});
+  final Map<String, dynamic> dataQueries;
+
+  _SportFormState({this.type, this.dataQueries});
+
   final _formKey = GlobalKey<FormState>();
   final days = List.filled(7, false); // dies de la setmana
   TimeOfDay time = TimeOfDay.now(); // hora
@@ -304,7 +331,10 @@ class _SportFormState extends State<SportForm> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.teal)),
               onPressed: () {
-                // aqui crea tasks
+                dataQueries["addEntries"](ConfigActivity(
+                    name: timeCtlName.text,
+                    genre: type,
+                    span: int.parse(timeCtl2.text)));
               },
               child: Text('Create task'),
             ),
