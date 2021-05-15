@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_mama/calendarPage.dart';
+import 'package:my_mama/dataModels.dart';
 import 'todoList.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 import 'connection.dart';
+import 'dataModels.dart';
 
 class ConfigurationPage extends StatefulWidget {
   const ConfigurationPage({Key key}) : super(key: key);
@@ -191,7 +193,7 @@ class _SportButtonState extends State<SportButton> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
-                          child: TaskList(),
+                          child: TaskList(type: text),
                         )
                       ],
                     ),
@@ -303,21 +305,22 @@ class _SportFormState extends State<SportForm> {
 }
 
 class TaskList extends StatefulWidget {
+  String type;
+  TaskList({this.type});
   @override
-  _TaskListState createState() => _TaskListState();
+  _TaskListState createState() => _TaskListState(type: this.type);
 }
 
 class _TaskListState extends State<TaskList> {
   List mainList = new List();
+  String type;
+  _TaskListState({this.type});
 
   @override
   void initState() {
     super.initState();
 
-    mainList.add(Task("Gym", 10, 250, "Sport"));
-    mainList.add(Task("Run", 60, 250, "Sport"));
-    mainList.add(Task("Swim", 120, 250, "Sport"));
-    mainList.add(Task("Dinner with friends", 180, 1200, "Social"));
+    mainList.add(ConfigActivity(name: "Gym", genre: "Sport", span: 10));
   }
 
   Widget build(BuildContext context) {
@@ -330,11 +333,20 @@ class _TaskListState extends State<TaskList> {
           // Convert each item into a widget based on the type of item it is.
           itemBuilder: (context, index) {
             final item = mainList[index];
-
-            return ListTile(
-              title: Text(item.name),
-              subtitle: Text("${item.span}"),
-            );
+            // hacerlo bonito
+            return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Container(
+                    decoration: new BoxDecoration(
+                      borderRadius: new BorderRadius.circular(16.0),
+                      color: Colors.teal,
+                    ),
+                    child: Column(
+                      children: [
+                        Text(item.name),
+                        Text("Duration ${item.span} minutes")
+                      ],
+                    )));
           },
         ));
   }
