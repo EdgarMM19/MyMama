@@ -53,8 +53,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  assets:
-    - images/mami.jpg
+  #assets:
+  #  - images/mami.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
