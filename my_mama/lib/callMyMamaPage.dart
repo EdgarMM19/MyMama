@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_mama/calendarPage.dart';
-import 'todoList.dart';
 import 'package:multi_select_item/multi_select_item.dart';
 import 'package:my_mama/dataModels.dart';
+import 'scheduler.dart';
 
 class CallMyMamaPage extends StatefulWidget {
   final Map<String, dynamic> dataQueries;
@@ -17,36 +16,38 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   final Map<String, dynamic> dataQueries;
   _CallMyMamaPageState({this.dataQueries});
 
-  List mainList = [];
   MultiSelectController controller = new MultiSelectController();
 
   @override
   void initState() {
     super.initState();
 
-    mainList.add(ConfigActivityFreeHour(name: "Gym", genre: "Sport", span: 10));
-    mainList.add(ConfigActivityFreeHour(name: "Run", genre: "Sport", span: 60));
-    mainList
-        .add(ConfigActivityFreeHour(name: "Swim", genre: "Sport", span: 120));
-    mainList.add(ConfigActivityFreeHour(
-        name: "Dinner with friends", genre: "Social", span: 150));
-
     controller.disableEditingWhenNoneSelected = true;
-    controller.set(mainList.length);
+    //controller.set(mainList.length);
   }
 
-  void getHelpFromMama(/*List<ConfigActivity> configs*/) async {
-    // select objects
+  void getHelpFromMama() async {
+
+    // configs cal borrar ConfigActivityFreeHour
+    List<ConfigActivity> configs = await dataQueries["consultaConfigs"]();
+    List<ConfigActivityFreeHour> recom = [];
+    List<ConfigActivity> rest = [];
+
+    for (ConfigActivity c in configs) {
+      if (c is ConfigActivityFreeHour) recom.add(c);
+      else rest.add(c);
+    }
+
     List<ConfigActivityFreeHour> selection = [];
     for (int idx in controller.selectedIndexes) {
-      selection.add(mainList[idx]);
+      selection.add(recom[idx]);
     }
     print(controller.selectedIndexes);
-    // List<Activities> newSchedule = callMyMama(configs, selection);
-    // set newSchedule on
+    List<Activity> newToAddSchedule = callMyMama(rest, selection);
+
   }
 
-  void delete() {
+  /*void delete() {
     var list = controller.selectedIndexes;
     list.sort((b, a) =>
         a.compareTo(b)); //reoder from biggest number, so it wont error
@@ -55,9 +56,9 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     });
 
     setState(() {
-      controller.set(mainList.length);
+      //controller.set(mainList.length);
     });
-  }
+  }*/
 
   void selectAll() {
     setState(() {
@@ -82,38 +83,60 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
               new Text('Selected ${controller.selectedIndexes.length} tasks'),
           backgroundColor: Colors.teal,
         ),
-        body: ListView.builder(
-          itemCount: mainList.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {},
-              child: MultiSelectItem(
-                isSelecting: controller.isSelecting,
-                onSelected: () {
-                  setState(() {
-                    controller.toggle(index);
-                  });
+        body: FutureBuilder(
+          future: dataQueries["consultaConfigs"](),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            else if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+              List<ConfigActivity> configs = snapshot.data;
+              List<ConfigActivityFreeHour> recom = [];
+              for (ConfigActivity c in configs) {
+                if (c is ConfigActivityFreeHour) recom.add(c);
+              }
+
+              return ListView.builder(
+                itemCount: recom.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {},
+                    child: MultiSelectItem(
+                      isSelecting: controller.isSelecting,
+                      onSelected: () {
+                        setState(() {
+                          controller.toggle(index);
+                        });
+                      },
+                      child: Container(
+                        child: ListTile(
+                          title: new Text("${recom[index].name}"),
+                          subtitle: new Text(
+                              "Duration: for ${recom[index].span} minutes"),
+                        ),
+                        decoration: controller.isSelected(index)
+                            ? new BoxDecoration(color: Colors.greenAccent)
+                            : new BoxDecoration(),
+                      ),
+                    ),
+                  );
                 },
-                child: Container(
-                  child: ListTile(
-                    title: new Text("${mainList[index].name}"),
-                    subtitle: new Text(
-                        "Duration: for ${mainList[index].span} minutes"),
-                  ),
-                  decoration: controller.isSelected(index)
-                      ? new BoxDecoration(color: Colors.grey[300])
-                      : new BoxDecoration(),
-                ),
-              ),
-            );
+              );
+            }
+            else {
+              print(snapshot.error);
+              return Placeholder();
+            }
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: new TextButton(
+        floatingActionButton: new ElevatedButton(
           onPressed: getHelpFromMama,
-          child: Text(
-            "  Call myMama  ",
-            style: TextStyle(color: Colors.white, fontSize: 45),
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child:Text("Schedule",
+              style: TextStyle(color: Colors.white, fontSize: 45),
+            )
           ),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
