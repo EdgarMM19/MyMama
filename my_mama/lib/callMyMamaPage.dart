@@ -17,17 +17,18 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   final Map<String, dynamic> dataQueries;
   _CallMyMamaPageState({this.dataQueries});
 
-  List mainList = new List();
+  List mainList = [];
   MultiSelectController controller = new MultiSelectController();
 
   @override
   void initState() {
     super.initState();
 
-    mainList.add(ConfigActivity(name: "Gym", genre: "Sport", span: 10));
-    mainList.add(ConfigActivity(name: "Run", genre: "Sport", span: 60));
-    mainList.add(ConfigActivity(name: "Swim", genre: "Sport", span: 120));
-    mainList.add(ConfigActivity(
+    mainList.add(ConfigActivityFreeHour(name: "Gym", genre: "Sport", span: 10));
+    mainList.add(ConfigActivityFreeHour(name: "Run", genre: "Sport", span: 60));
+    mainList
+        .add(ConfigActivityFreeHour(name: "Swim", genre: "Sport", span: 120));
+    mainList.add(ConfigActivityFreeHour(
         name: "Dinner with friends", genre: "Social", span: 150));
 
     controller.disableEditingWhenNoneSelected = true;
@@ -36,7 +37,7 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
 
   void getHelpFromMama(/*List<ConfigActivity> configs*/) async {
     // select objects
-    List<ConfigFixedActivityFreeHour> selection;
+    List<ConfigActivityFreeHour> selection = [];
     for (int idx in controller.selectedIndexes) {
       selection.add(mainList[idx]);
     }
