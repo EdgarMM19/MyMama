@@ -16,8 +16,7 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     return Column(
       children: [
         Padding(
-          padding:
-          EdgeInsets.symmetric(horizontal: padding, vertical: padding),
+          padding: EdgeInsets.symmetric(horizontal: padding, vertical: padding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -31,14 +30,11 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
         ),
         Padding(
             padding:
-            EdgeInsets.symmetric(horizontal: padding, vertical: padding),
+                EdgeInsets.symmetric(horizontal: padding, vertical: padding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TodoList()
-              ],
-            )
-        ),
+              children: [TodoList()],
+            )),
       ],
     );
   }
