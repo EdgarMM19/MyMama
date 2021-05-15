@@ -22,6 +22,7 @@ class _TodoListState extends State<TodoList> {
         child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: items.length,
+          shrinkWrap: true,
           itemBuilder: (context, index) {
             final item = items[index];
             return Padding(
