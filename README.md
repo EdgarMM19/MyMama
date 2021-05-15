@@ -1,2 +1,3 @@
 # MyMama
-HackUPC 2021
+Projecte HackUPC 2021
+
