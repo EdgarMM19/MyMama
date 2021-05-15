@@ -90,14 +90,17 @@ class _LangButtonState extends State<LangButton> {
                         SizedBox(height: 20),
                         Center(
                           child: Text(
-                            "Leaderboard",
+                            "Language",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.blue,
+                                color: Colors.teal,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(height: 20),
+                        Center(
+                            child: Text(
+                                "At the moment only in English \n sorry International Hackers:("))
                       ],
                     ),
                   ),
