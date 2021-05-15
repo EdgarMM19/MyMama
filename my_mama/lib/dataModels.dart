@@ -25,7 +25,7 @@ class ConfigFixedActivity extends ConfigActivity {
   List<int> whenMinut;
   List<int> whenDia;
 
-  ConfigFixedActivity({this.name, this.genre, this.span, this.whenMinut, this.whenDia});
+  ConfigFixedActivity({String name, String genre, int span, this.whenMinut, this.whenDia}): super(name: name, genre: genre, span: span);
 
   ConfigFixedActivity.fromJson(Map<String, dynamic> json) {
     this.name = json["name"] as String;
@@ -49,7 +49,7 @@ class ConfigFixedActivity extends ConfigActivity {
 class ConfigFixedActivityFreeHour extends ConfigActivity {
   List<int> whenDia;
 
-  ConfigFixedActivityFreeHour({this.name, this.genre, this.span, this.whenDia});
+  ConfigFixedActivityFreeHour({String name, String genre, int span, this.whenDia}): super(name: name, genre: genre, span: span);
 
   ConfigFixedActivityFreeHour.fromJson(Map<String, dynamic> json) {
     this.name = json["name"] as String;
