@@ -12,30 +12,6 @@ class CallMyMamaPage extends StatefulWidget {
 class _CallMyMamaPageState extends State<CallMyMamaPage> {
   @override
   Widget build(BuildContext context) {
-    double padding = 25;
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: padding, vertical: padding),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text("MyMama",
-                  style: TextStyle(
-                      fontSize: 72.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.teal)),
-            ],
-          ),
-        ),
-        Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: padding, vertical: padding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [TodoList()],
-            )),
-      ],
-    );
+    return Placeholder();
   }
 }
