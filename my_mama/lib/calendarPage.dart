@@ -29,15 +29,8 @@ class _CalendarPageState extends State<CalendarPage> {
             ],
           ),
         ),
-        Padding(
-          padding:
-            EdgeInsets.symmetric(horizontal: padding, vertical: padding),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TodoList()
-            ],
-          )
+        Expanded(
+          child: TodoList()
         ),
       ],
     );

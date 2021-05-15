@@ -9,7 +9,7 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   final List<TodoItem> items = List<TodoItem>.generate(
-    1000,
+    100,
     (i) => TodoItem(
       itemData: i.toString(),
       itemHour: i.toString(),
@@ -19,15 +19,9 @@ class _TodoListState extends State<TodoList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 500.0,
-        height: 500.0,
         child: ListView.builder(
-          shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          // Let the ListView know how many items it needs to build.
           itemCount: items.length,
-          // Provide a builder function. This is where the magic happens.
-          // Convert each item into a widget based on the type of item it is.
           itemBuilder: (context, index) {
             final item = items[index];
             return Padding(
@@ -35,7 +29,8 @@ class _TodoListState extends State<TodoList> {
               child: item,
             );
           },
-        ));
+        )
+      );
   }
 }
 
@@ -45,10 +40,15 @@ class TodoItem extends StatelessWidget {
   final Random rng = Random();
 
   TodoItem({Key key, @required this.itemData, this.itemHour}) : super(key: key);
+
+  Color randomColor() {
+    return Color.fromRGBO(rng.nextInt(64) + 64, rng.nextInt(64) + 160, rng.nextInt(64) + 160, 1.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Row(
+      child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
@@ -57,20 +57,25 @@ class TodoItem extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.teal))),
+                    color: Colors.teal)
+            )
+        ),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             child: Container(
-                width: 400,
+                width: 300,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(rng.nextInt(64) + 64,
-                      rng.nextInt(64) + 160, rng.nextInt(64) + 160, 1.0),
+                  color: randomColor(),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(itemData),
-                ))),
-      ],
-    ));
+                )
+            )
+        ),
+      ])
+    );
   }
 }
+
+

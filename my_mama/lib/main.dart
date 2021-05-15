@@ -32,18 +32,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final PageController controller = PageController(initialPage: 1);
-    return Scaffold(
-      body: Container(
-        child: PageView(
-          scrollDirection: Axis.horizontal,
-          controller: controller,
-          children: const <Widget> [
-            ConfigurationPage(),
-            CalendarPage(),
-            CallMyMamaPage()
-          ]
-        )
-      ),
+    final Size size = MediaQuery.of(context).size;
+    return Container(
+      child: PageView(
+        scrollDirection: Axis.horizontal,
+        controller: controller,
+        children: <Widget> [
+          Container(child: ConfigurationPage()),
+          Container(child: CalendarPage()),
+          Container(child: CallMyMamaPage()),
+        ]
+      )
     );
   }
 }
