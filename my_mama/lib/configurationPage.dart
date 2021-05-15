@@ -13,7 +13,8 @@ class ConfigurationPage extends StatefulWidget {
   ConfigurationPage({Key key, this.dataQueries}) : super(key: key);
 
   @override
-  _ConfigurationPageState createState() => _ConfigurationPageState(dataQueries: dataQueries);
+  _ConfigurationPageState createState() =>
+      _ConfigurationPageState(dataQueries: dataQueries);
 }
 
 class _ConfigurationPageState extends State<ConfigurationPage> {
@@ -143,7 +144,8 @@ class SportButton extends StatefulWidget {
 
   SportButton({this.text, this.dataQueries});
   @override
-  _SportButtonState createState() => _SportButtonState(text: this.text, dataQueries: dataQueries);
+  _SportButtonState createState() =>
+      _SportButtonState(text: this.text, dataQueries: dataQueries);
 }
 
 class _SportButtonState extends State<SportButton> {
@@ -219,7 +221,10 @@ class _SportButtonState extends State<SportButton> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
-                          child: TaskList(type: text),
+                          child: TaskList(
+                            type: text,
+                            dataQueries: dataQueries,
+                          ),
                         )
                       ],
                     ),
@@ -241,7 +246,8 @@ class SportForm extends StatefulWidget {
   SportForm({this.type, this.dataQueries});
 
   @override
-  _SportFormState createState() => _SportFormState(type: this.type, dataQueries: dataQueries);
+  _SportFormState createState() =>
+      _SportFormState(type: this.type, dataQueries: dataQueries);
 }
 
 class _SportFormState extends State<SportForm> {
@@ -377,51 +383,78 @@ class _SportFormState extends State<SportForm> {
 
 class TaskList extends StatefulWidget {
   final String type;
-  TaskList({this.type});
+  final Map<String, dynamic> dataQueries;
+
+  TaskList({this.type, this.dataQueries});
   @override
-  _TaskListState createState() => _TaskListState(type: this.type);
+  _TaskListState createState() =>
+      _TaskListState(type: this.type, dataQueries: dataQueries);
 }
 
 class _TaskListState extends State<TaskList> {
-  List mainList = new List();
   String type;
-  _TaskListState({this.type});
+  final Map<String, dynamic> dataQueries;
+
+  _TaskListState({this.type, this.dataQueries});
 
   @override
   void initState() {
     super.initState();
+    print(dataQueries);
+  }
 
-    mainList.add(ConfigActivity(name: "Gym", genre: "Sport", span: 10));
+  List<ConfigActivity> calculateAct(List<ConfigActivity> a) {
+    List<ConfigActivity> mainList = [];
+    for (var act in a) {
+      if (type.toLowerCase() == act.genre.toLowerCase()) {
+        mainList.add(act);
+      }
+    }
+    return mainList;
   }
 
   Widget build(BuildContext context) {
-    return Container(
-        height: 300,
-        child: ListView.builder(
-          // Let the ListView know how many items it needs to build.
-          itemCount: mainList.length,
-          // Provide a builder function. This is where the magic happens.
-          // Convert each item into a widget based on the type of item it is.
-          itemBuilder: (context, index) {
-            final item = mainList[index];
-            // hacerlo bonito
-            return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Container(
-                    decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.circular(16.0),
-                      color: Colors.teal,
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          item.name.toUpperCase(),
-                          style: TextStyle(fontSize: 22),
-                        ),
-                        Text("Duration ${item.span} minutes")
-                      ],
-                    )));
-          },
-        ));
+    return FutureBuilder(
+        future: dataQueries["consultaConfigs"](),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            List<ConfigActivity> mainList = calculateAct(snapshot.data);
+            return Container(
+                height: 300,
+                child: ListView.builder(
+                  // Let the ListView know how many items it needs to build.
+                  itemCount: mainList.length,
+                  // Provide a builder function. This is where the magic happens.
+                  // Convert each item into a widget based on the type of item it is.
+                  itemBuilder: (context, index) {
+                    final item = mainList[index];
+                    // hacerlo bonito
+                    return Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Container(
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular(16.0),
+                              color: Colors.teal,
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  item.name.toUpperCase(),
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                                Text("Duration ${item.span} minutes")
+                              ],
+                            )));
+                  },
+                ));
+          } else {
+            print(snapshot.error);
+            return Placeholder();
+          }
+        });
   }
 }
