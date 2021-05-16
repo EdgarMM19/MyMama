@@ -27,15 +27,16 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
   }
 
   void getHelpFromMama() async {
-
     // configs cal borrar ConfigActivityFreeHour
     List<ConfigActivity> configs = await dataQueries["consultaConfigs"]();
     List<ConfigActivityFreeHour> recom = [];
     List<ConfigActivity> rest = [];
 
     for (ConfigActivity c in configs) {
-      if (c is ConfigActivityFreeHour) recom.add(c);
-      else rest.add(c);
+      if (c is ConfigActivityFreeHour)
+        recom.add(c);
+      else
+        rest.add(c);
     }
 
     List<ConfigActivityFreeHour> selection = [];
@@ -44,18 +45,17 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     }
     List<Activity> newToAddSchedule = callMyMama(rest, selection);
     List<ConfigActivity> newConfigs = [];
-    for (int i=0; i<newToAddSchedule.length; i++) {
+    for (int i = 0; i < newToAddSchedule.length; i++) {
       ConfigActivity c = newToAddSchedule[i].config;
       if (c is ConfigActivityFreeHour) {
         newConfigs.add(ConfigActivityOneTime(
-          name: c.name,
-          span: c.span,
-          genre: c.genre,
-          whenMinut: newToAddSchedule[i].start,
-          whenDia: DateTime.now().weekday - 1
-        ));
-      }
-      else newConfigs.add(c);
+            name: c.name,
+            span: c.span,
+            genre: c.genre,
+            whenMinut: newToAddSchedule[i].start,
+            whenDia: DateTime.now().weekday - 1));
+      } else
+        newConfigs.add(c);
     }
     for (int idx=0; idx<recom.length; idx++) {
       if (!controller.selectedIndexes.contains(idx)) {
@@ -64,19 +64,6 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     }
     dataQueries["saveConfigs"](newConfigs);
   }
-
-  /*void delete() {
-    var list = controller.selectedIndexes;
-    list.sort((b, a) =>
-        a.compareTo(b)); //reoder from biggest number, so it wont error
-    list.forEach((element) {
-      mainList.removeAt(element);
-    });
-
-    setState(() {
-      //controller.set(mainList.length);
-    });
-  }*/
 
   void selectAll() {
     setState(() {
@@ -106,8 +93,8 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
-            }
-            else if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+            } else if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData) {
               List<ConfigActivity> configs = snapshot.data;
               List<ConfigActivityFreeHour> recom = [];
               for (ConfigActivity c in configs) {
@@ -117,31 +104,37 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
               return ListView.builder(
                 itemCount: recom.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: MultiSelectItem(
-                      isSelecting: controller.isSelecting,
-                      onSelected: () {
-                        setState(() {
-                          controller.toggle(index);
-                        });
-                      },
-                      child: Container(
-                        child: ListTile(
-                          title: new Text("${recom[index].name}"),
-                          subtitle: new Text(
-                              "Duration: for ${recom[index].span} minutes"),
+                  return Container(
+                      padding: EdgeInsets.all(10),
+                      child: InkWell(
+                        borderRadius: new BorderRadius.circular(16.0),
+                        onTap: () {},
+                        child: MultiSelectItem(
+                          isSelecting: controller.isSelecting,
+                          onSelected: () {
+                            setState(() {
+                              controller.toggle(index);
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            child: ListTile(
+                              title: new Text("${recom[index].name}"),
+                              subtitle: new Text(
+                                  "Duration: for ${recom[index].span} minutes"),
+                            ),
+                            decoration: controller.isSelected(index)
+                                ? new BoxDecoration(
+                                    color: Colors.greenAccent,
+                                    borderRadius:
+                                        new BorderRadius.circular(16.0))
+                                : new BoxDecoration(),
+                          ),
                         ),
-                        decoration: controller.isSelected(index)
-                            ? new BoxDecoration(color: Colors.greenAccent)
-                            : new BoxDecoration(),
-                      ),
-                    ),
-                  );
+                      ));
                 },
               );
-            }
-            else {
+            } else {
               print(snapshot.error);
               return Placeholder();
             }
@@ -151,11 +144,11 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
         floatingActionButton: new ElevatedButton(
           onPressed: getHelpFromMama,
           child: Padding(
-            padding: EdgeInsets.all(10),
-            child:Text("Schedule",
-              style: TextStyle(color: Colors.white, fontSize: 45),
-            )
-          ),
+              padding: EdgeInsets.all(10),
+              child: Text(
+                "Schedule",
+                style: TextStyle(color: Colors.white, fontSize: 45),
+              )),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
         ),

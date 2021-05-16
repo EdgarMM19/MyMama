@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:my_mama/calendarPage.dart';
 import 'package:my_mama/dataModels.dart';
 import 'todoList.dart';
@@ -305,6 +304,15 @@ class _SportFormState extends State<SportForm> {
             },
           ),
           TextFormField(
+            controller: timeCtl2, // add this line.
+            decoration: new InputDecoration(
+                labelText: "Enter the activity duration in minutes"),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+          ),
+          TextFormField(
             controller: timeCtl, // add this line.
             decoration: InputDecoration(
               labelText: 'Start time (if one preferred)',
@@ -326,15 +334,6 @@ class _SportFormState extends State<SportForm> {
                 });
               }
             },
-          ),
-          TextFormField(
-            controller: timeCtl2, // add this line.
-            decoration: new InputDecoration(
-                labelText: "Enter the activity duration in minutes"),
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ],
           ),
           WeekdaySelector(
             onChanged: (int day) {
