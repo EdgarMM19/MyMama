@@ -22,7 +22,7 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
         }
       }
     } else if (c is ConfigActivityOneTime) {
-      if (c.whenDia == today) to_do.add(c);
+      if (c.whenDia == today) fixed.add(Activity(config: c, start: c.whenMinut));
     }
   }
 
