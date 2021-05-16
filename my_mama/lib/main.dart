@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:my_mama/calendarPage.dart';
 import 'package:my_mama/callMyMamaPage.dart';
@@ -43,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _prefs.then((SharedPreferences prefs) {
         prefs.clear();
+        prefs.setString("data", jsonEncode([]));
         /*prefs.setString(
             "data",
             jsonEncode([
