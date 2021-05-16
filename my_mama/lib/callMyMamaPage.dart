@@ -42,9 +42,22 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     for (int idx in controller.selectedIndexes) {
       selection.add(recom[idx]);
     }
-    print(controller.selectedIndexes);
     List<Activity> newToAddSchedule = callMyMama(rest, selection);
-
+    List<ConfigActivity> newConfigs = [];
+    for (int i=0; i<newToAddSchedule.length; i++) {
+      ConfigActivity c = newToAddSchedule[i].config;
+      if (c is ConfigActivityFreeHour) {
+        newConfigs.add(ConfigFixedActivity(
+          name: c.name,
+          span: c.span,
+          genre: c.genre,
+          whenMinut: [newToAddSchedule[i].start],
+          whenDia: [DateTime.now().weekday - 1]
+        ));
+      }
+      else newConfigs.add(c);
+    }
+    dataQueries["saveConfigs"](newConfigs);
   }
 
   /*void delete() {

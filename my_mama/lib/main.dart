@@ -78,12 +78,24 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void saveConfigs(List<ConfigActivity> configs) async {
+    setState(() {
+      _prefs.then((SharedPreferences pref) {
+        pref.setString("data",
+            jsonEncode(configs.map((e) => e.toJson()).toList())
+        );
+      });
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
     Map<String, Function> dataQueries = {
       "addConfig": addConfig,
       "consultaConfigs": consultaConfigs,
+      "saveConfigs": saveConfigs
     };
 
     final PageController controller = PageController(initialPage: 1);
