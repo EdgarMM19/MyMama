@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF2196f3),
         accentColor: const Color(0xFF2196f3),
         canvasColor: const Color(0xFFfafafa),
-        backgroundColor: const Color(0xFFFAF0)),
       ),
       home: new MyHomePage(),
     );
