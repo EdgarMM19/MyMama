@@ -298,6 +298,8 @@ class _SportFormState extends State<SportForm> {
 
             decoration: const InputDecoration(
               hintText: 'Enter task name',
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
             ),
             validator: (value) {
               return null;
@@ -306,7 +308,10 @@ class _SportFormState extends State<SportForm> {
           TextFormField(
             controller: timeCtl2, // add this line.
             decoration: new InputDecoration(
-                labelText: "Enter the activity duration in minutes"),
+              labelText: "Enter the activity duration in minutes",
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+            ),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly
@@ -316,6 +321,8 @@ class _SportFormState extends State<SportForm> {
             controller: timeCtl, // add this line.
             decoration: InputDecoration(
               labelText: 'Start time (if one preferred)',
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
             ),
             onTap: () async {
               FocusScope.of(context).requestFocus(new FocusNode());
