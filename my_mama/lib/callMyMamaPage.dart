@@ -57,6 +57,11 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
       }
       else newConfigs.add(c);
     }
+    for (int idx=0; idx<recom.length; idx++) {
+      if (!controller.selectedIndexes.contains(idx)) {
+        newConfigs.add(recom[idx]);
+      }
+    }
     dataQueries["saveConfigs"](newConfigs);
   }
 
