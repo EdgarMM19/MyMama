@@ -305,6 +305,15 @@ class _SportFormState extends State<SportForm> {
             },
           ),
           TextFormField(
+            controller: timeCtl2, // add this line.
+            decoration: new InputDecoration(
+                labelText: "Enter the activity duration in minutes"),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+          ),
+          TextFormField(
             controller: timeCtl, // add this line.
             decoration: InputDecoration(
               labelText: 'Start time (if one preferred)',
@@ -326,15 +335,6 @@ class _SportFormState extends State<SportForm> {
                 });
               }
             },
-          ),
-          TextFormField(
-            controller: timeCtl2, // add this line.
-            decoration: new InputDecoration(
-                labelText: "Enter the activity duration in minutes"),
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ],
           ),
           WeekdaySelector(
             onChanged: (int day) {
