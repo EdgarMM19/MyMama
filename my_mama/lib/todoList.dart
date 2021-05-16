@@ -130,8 +130,9 @@ class TodoItem extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(itemName, style: TextStyle(
-                      fontSize: 15.0,
+                    child: Text(itemName,
+                      style: TextStyle(
+                        fontSize: 15.0,
                         fontWeight: FontWeight.bold)
                     )
                   ),
