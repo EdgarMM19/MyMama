@@ -341,7 +341,7 @@ class _SportFormState extends State<SportForm> {
               setState(() {
                 // Use module % 7 as Sunday's index in the array is 0 and
                 // DateTime.sunday constant integer value is 7.
-                final index = day % 7;
+                final index = (day - 1) % 7;
                 // We "flip" the value in this example, but you may also
                 // perform validation, a DB write, an HTTP call or anything
                 // else before you actually flip the value,
