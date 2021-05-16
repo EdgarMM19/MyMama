@@ -25,7 +25,7 @@ class _CalendarPageState extends State<CalendarPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("MyMama",
+              Text("iParent",
                   style: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.bold,
