@@ -85,8 +85,16 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
       child: new Scaffold(
         appBar: new AppBar(
           title:
-              new Text('Selected ${controller.selectedIndexes.length} tasks'),
-          backgroundColor: Colors.teal,
+              new Text(
+                'Selected ${controller.selectedIndexes.length} tasks',
+                style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal)),
+          backgroundColor: Color(0xFFfafafa),
+          elevation: 0,
+          backwardsCompatibility: true,
+          bottomOpacity: 0,
         ),
         body: FutureBuilder(
           future: dataQueries["consultaConfigs"](),
