@@ -59,7 +59,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: SportButton(
-          text: "Higiene",
+          text: "Hygiene",
           dataQueries: dataQueries,
         ),
       ),
@@ -154,19 +154,25 @@ class _SportButtonState extends State<SportButton> {
 
   _SportButtonState({this.text, this.dataQueries});
   IconData icon;
+  Color bg = Colors.teal;
   @override
   void initState() {
     super.initState();
     if (text == "Sport") {
       icon = Icons.pedal_bike;
+      bg = const Color(0xFFF08080);
     } else if (text == "Meal") {
       icon = Icons.fastfood;
-    } else if (text == "Higiene") {
+      bg = const Color(0xFF90EE90);
+    } else if (text == "Hygiene") {
       icon = Icons.clean_hands;
+      bg = const Color(0xFF87CEFA);
     } else if (text == "Homework") {
       icon = Icons.book;
+      bg = const Color(0xFFFFA07A);
     } else if (text == "Lectures") {
       icon = Icons.library_books;
+      bg = const Color(0xFFF0E68C);
     }
   }
 
@@ -177,7 +183,7 @@ class _SportButtonState extends State<SportButton> {
           padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
           textColor: Colors.black,
           child: Row(children: [
-            Icon(icon, color: Colors.teal),
+            Icon(icon, color: bg),
             Text("  " + text),
           ]),
           onPressed: () {
@@ -199,7 +205,7 @@ class _SportButtonState extends State<SportButton> {
                             "Add " + text + " activity",
                             style: TextStyle(
                                 fontSize: 24,
-                                color: Colors.teal,
+                                color: bg,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -264,7 +270,24 @@ class _SportFormState extends State<SportForm> {
   TextEditingController timeCtlName = TextEditingController(); // name
 
   TextEditingController timeCtl2 = TextEditingController(); // duration
+
+  Color bg = Colors.teal;
   @override
+  void initState() {
+    super.initState();
+    if (type == "Sport") {
+      bg = const Color(0xFFF08080);
+    } else if (type == "Meal") {
+      bg = const Color(0xFF90EE90);
+    } else if (type == "Hygiene") {
+      bg = const Color(0xFF87CEFA);
+    } else if (type == "Homework") {
+      bg = const Color(0xFFFFA07A);
+    } else if (type == "Lectures") {
+      bg = const Color(0xFFF0E68C);
+    }
+  }
+
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -334,8 +357,7 @@ class _SportFormState extends State<SportForm> {
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
             child: ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.teal)),
+                  backgroundColor: MaterialStateProperty.all<Color>(bg)),
               onPressed: () {
                 bool daysPresent = false;
                 List<int> daysInt = [];
@@ -397,10 +419,21 @@ class _TaskListState extends State<TaskList> {
 
   _TaskListState({this.type, this.dataQueries});
 
+  Color bg = Colors.teal;
   @override
   void initState() {
     super.initState();
-    print(dataQueries);
+    if (type == "Sport") {
+      bg = const Color(0xFFF08080);
+    } else if (type == "Meal") {
+      bg = const Color(0xFF90EE90);
+    } else if (type == "Hygiene") {
+      bg = const Color(0xFF87CEFA);
+    } else if (type == "Homework") {
+      bg = const Color(0xFFFFA07A);
+    } else if (type == "Lectures") {
+      bg = const Color(0xFFF0E68C);
+    }
   }
 
   List<ConfigActivity> calculateAct(List<ConfigActivity> a) {
@@ -438,7 +471,7 @@ class _TaskListState extends State<TaskList> {
                         child: Container(
                             decoration: new BoxDecoration(
                               borderRadius: new BorderRadius.circular(16.0),
-                              color: Colors.teal,
+                              color: bg,
                             ),
                             child: Column(
                               children: [
