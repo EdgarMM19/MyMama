@@ -116,15 +116,17 @@ class TodoItem extends StatelessWidget {
       child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
+        SizedBox(
+          width: 150,
+          child: Center(child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
             child: Text(minuteToString(itemInitialMinute, itemDuration),
                 style: TextStyle(
                     fontSize: 15.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.teal)
-            )
-        ),
+            ))
+        )),
         Expanded(child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
             child: ClipRRect(
