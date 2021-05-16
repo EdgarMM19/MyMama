@@ -80,6 +80,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void deleteConfig(ConfigActivity delConfig) async {
+    List<ConfigActivity> data = await consultaConfigs();
+    data.remove(delConfig);
+    setState(() {
+      _prefs.then((SharedPreferences pref) {
+        pref.setString("data",
+            jsonEncode(data.map((e) => e.toJson()).toList())
+        );
+      });
+    });
+  }
+
+
   void saveConfigs(List<ConfigActivity> configs) async {
     setState(() {
       _prefs.then((SharedPreferences pref) {
@@ -97,7 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Map<String, Function> dataQueries = {
       "addConfig": addConfig,
       "consultaConfigs": consultaConfigs,
-      "saveConfigs": saveConfigs
+      "saveConfigs": saveConfigs,
+      "deleteConfig": deleteConfig
     };
 
     final PageController controller = PageController(initialPage: 1);
