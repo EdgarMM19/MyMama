@@ -79,14 +79,22 @@ class TodoItem extends StatelessWidget {
     return Color.fromRGBO(a%64 + 64, b%64 + 160, c%64 + 160, 1.0);
   }
 
-  String minuteToString(int initialMinute) {
+  String minuteToString(int initialMinute, int duration) {
     int h = initialMinute~/60;
     int m = initialMinute%60;
     String H = h.toString();
     if (h < 10) H = "0" + H;
     String M = m.toString();
     if (m < 10) M = "0" + M;
-    return H + ":" + M;
+    //return H + ":" + M;
+    int finalMinute = initialMinute + duration;
+    int h1 = finalMinute~/60;
+    int m1 = finalMinute%60;
+    String H1 = h1.toString();
+    if (h1 < 10) H1 = "0" + H1;
+    String M1 = m1.toString();
+    if (m1 < 10) M1 = "0" + M1;
+    return H + ":" + M + "-" + H1 + ":" + M1;
   }
 
   String hash(String input) {
@@ -101,9 +109,9 @@ class TodoItem extends StatelessWidget {
       children: [
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-            child: Text(minuteToString(itemInitialMinute),
+            child: Text(minuteToString(itemInitialMinute, itemDuration),
                 style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 15.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.teal)
             )
@@ -121,7 +129,10 @@ class TodoItem extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(itemName)
+                    child: Text(itemName, style: TextStyle(
+                      fontSize: 15.0,
+                        fontWeight: FontWeight.bold)
+                    )
                   ),
                 )
               )
