@@ -194,8 +194,8 @@ class _SportButtonState extends State<SportButton> {
                       borderRadius: BorderRadius.circular(40)),
                   elevation: 16,
                   child: Container(
-                    height: 600.0,
-                    width: 360.0,
+                    height: 650.0,
+                    width: 400.0,
                     child: ListView(
                       children: [
                         SizedBox(height: 20),
@@ -217,7 +217,7 @@ class _SportButtonState extends State<SportButton> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
+                              vertical: 10, horizontal: 35),
                           child: SportForm(
                             type: text,
                             dataQueries: dataQueries,
@@ -225,7 +225,7 @@ class _SportButtonState extends State<SportButton> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
+                              vertical: 10, horizontal: 35),
                           child: TaskList(
                             type: text,
                             dataQueries: dataQueries,
@@ -466,7 +466,7 @@ class _TaskListState extends State<TaskList> {
                     // hacerlo bonito
                     return Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                         child: Container(
                             decoration: new BoxDecoration(
                               borderRadius: new BorderRadius.circular(16.0),
