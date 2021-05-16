@@ -47,12 +47,12 @@ class _CallMyMamaPageState extends State<CallMyMamaPage> {
     for (int i=0; i<newToAddSchedule.length; i++) {
       ConfigActivity c = newToAddSchedule[i].config;
       if (c is ConfigActivityFreeHour) {
-        newConfigs.add(ConfigFixedActivity(
+        newConfigs.add(ConfigActivityOneTime(
           name: c.name,
           span: c.span,
           genre: c.genre,
-          whenMinut: [newToAddSchedule[i].start],
-          whenDia: [DateTime.now().weekday - 1]
+          whenMinut: newToAddSchedule[i].start,
+          whenDia: DateTime.now().weekday - 1
         ));
       }
       else newConfigs.add(c);

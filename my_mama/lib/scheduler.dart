@@ -21,6 +21,8 @@ List<Activity> today_schedule(List<ConfigActivity> configs) {
           to_do.add(c);
         }
       }
+    } else if (c is ConfigActivityOneTime) {
+      if (c.whenDia == today) to_do.add(c);
     }
   }
 

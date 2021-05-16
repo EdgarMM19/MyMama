@@ -31,6 +31,7 @@ class _TodoListState extends State<TodoList> {
             else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
               List<ConfigActivity> data = snapshot.data;
               List<Activity> activities = today_schedule(data);
+              activities.sort((Activity A, Activity B) => A.start.compareTo(B.start));
               List<TodoItem> todos = activities.map<TodoItem>(
                       (e) =>
                       TodoItem(itemName: e.config.name,

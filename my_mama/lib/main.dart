@@ -44,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
         prefs.clear();
         prefs.setString("data", jsonEncode(
             [
+              ConfigActivityOneTime(name: "Restaurant", span: 60, genre: "Food", whenDia: 6, whenMinut: 14*60),
               ConfigFixedActivityFreeHour(name: "Running", span: 60, genre: "Sport", whenDia: [0, 3, 5]),
               ConfigFixedActivity(name: "Real", span: 60, genre: "Math", whenDia: [0, 3, 5, 6], whenMinut: [12*60, 13*60, 23*60 + 55, 9*60]),
               ConfigActivityFreeHour(name: "Rentadora", span: 30, genre: "Higyene")
@@ -60,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (e["type"] == 1) return ConfigFixedActivity.fromJson(e);
                 if (e["type"] == 2) return ConfigFixedActivityFreeHour.fromJson(e);
                 if (e["type"] == 3) return ConfigActivityFreeHour.fromJson(e);
+                if (e["type"] == 4) return ConfigActivityOneTime.fromJson(e);
               }
       ).toList();
       return listConfig;

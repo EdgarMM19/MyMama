@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ConfigActivity {
   String name;
   String genre;
@@ -75,6 +77,24 @@ class ConfigActivityFreeHour extends ConfigActivity {
 
   Map<String, dynamic> toJson() =>
       {"name": this.name, "genre": this.genre, "span": span, "type": 3};
+}
+
+class ConfigActivityOneTime extends ConfigActivity {
+  int whenDia;
+  int whenMinut;
+  ConfigActivityOneTime({String name, String genre, int span, this.whenMinut, this.whenDia}): super(name: name, genre: genre, span: span);
+
+  ConfigActivityOneTime.fromJson(Map<String, dynamic> json) {
+    this.name = json["name"] as String;
+    this.genre = json["genre"] as String;
+    this.span = json["span"] as int;
+    this.whenDia = json["whenDia"] as int;
+    this.whenMinut = json["whenMinut"] as int;
+  }
+
+  Map<String, dynamic> toJson() =>
+      {"name": this.name, "genre": this.genre, "span": span, "whenDia": whenDia, "whenMinut": whenMinut, "type": 4};
+
 }
 
 class Activity {
