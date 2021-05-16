@@ -80,6 +80,14 @@ class TodoItem extends StatelessWidget {
     return Color.fromRGBO(a%64 + 64, b%64 + 160, c%64 + 160, 1.0);
   }
 
+  Color detColor() {
+    if (this.itemType == "Sport") return Color(0xFFF08080);
+    else if (this.itemType == "Meal") return Color(0xFF90EE90);
+    else if (this.itemType == "Hygiene") return Color(0xFF87CEFA);
+    else if (this.itemType == "Homework") return Color(0xFFFFA07A);
+    else if (this.itemType == "Lectures") return Color(0xFFF0E68C);
+  }
+
   String minuteToString(int initialMinute, int duration) {
     int h = initialMinute~/60;
     int m = initialMinute%60;
@@ -124,7 +132,7 @@ class TodoItem extends StatelessWidget {
               child: Container(
                 height: 40*max(itemDuration/60, 1),
                 decoration: BoxDecoration(
-                  color: randomColor(),
+                  color: detColor(),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
