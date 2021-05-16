@@ -69,7 +69,7 @@ List<Activity> callMyMama(
       b.span.compareTo(a.span));
 
   for (ConfigActivityFreeHour c in to_do) {
-    for (var i = 0; i < fixed.length; i++) {
+    for (var i = 0; i <= fixed.length; i++) {
       int s, f;
       if (i == 0) {
         s = 8 * 60;
@@ -77,14 +77,14 @@ List<Activity> callMyMama(
         s = fixed[i - 1].start + fixed[i - 1].config.span;
       }
 
-      if (i == fixed.length - 1) {
+      if (i == fixed.length) {
         f = 22 * 60;
       } else {
-        f = fixed[i + 1].start;
+        f = fixed[i].start;
       }
 
       if (s + c.span <= f) {
-        fixed.insert(i + 1, Activity(config: c, start: s));
+        fixed.insert(i, Activity(config: c, start: s));
         break;
       }
     }
